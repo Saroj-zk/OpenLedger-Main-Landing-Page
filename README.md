@@ -1,6 +1,6 @@
 # OpenLedger — Landing Page
 
-The marketing site for OpenLedger: *Open by choice. Private by design.*
+The marketing site for OpenLedger: *Your AI. On your terms.*
 
 Built with React 19, Vite, Tailwind CSS 3, GSAP (ScrollTrigger) and Lenis smooth scrolling.
 

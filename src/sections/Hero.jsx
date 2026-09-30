@@ -27,13 +27,13 @@ export default function Hero() {
       <div className="shell relative z-10 w-full">
         <div data-hero-exit className="mx-auto max-w-[980px] text-center">
           <h1 className="display text-[44px] leading-[0.98] sm:text-[84px] lg:text-[112px]">
-            Open by choice.
+            Your AI.
             <br />
-            <span className="text-orange">Private by design.</span>
+            <span className="text-orange">On your terms.</span>
           </h1>
 
           <p className="lead mx-auto mt-8 max-w-[600px] !text-fg/75">
-            AI shouldn’t be limited to one model or one memory. OpenLedger brings models, memory, privacy, and agents together, while keeping you in control.
+            No lock-in to a single model. No memory that resets. No data you don’t control. OpenLedger is the AI blockchain that puts models, memory, and privacy in your hands.
           </p>
 
           <div className="mt-10 flex justify-center">
