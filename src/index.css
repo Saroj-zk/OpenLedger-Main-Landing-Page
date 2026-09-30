@@ -1,0 +1,308 @@
+@font-face {
+  font-family: 'Geist Pixel Square';
+  src: url('/fonts/GeistPixel-Square.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --ink: #000;
+  --ink-2: #070707;
+  --ink-3: #0e0e0e;
+  --bone: #f4efe9;
+  --mute: #8f8b86;
+  --dim: #5c5955;
+  --orange: #ff5500;
+  --ember: #ff7a2e;
+  --amber: #ffb07a;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --paper: #f3f0eb;
+}
+
+/* ---------- Section themes ----------
+   Sections alternate black and paper. Everything that changes between them
+   reads these variables, so a dark island inside a light section (or the
+   other way round) just re-declares the theme class. */
+:root,
+.theme-dark {
+  --bg: #000;
+  --fg-rgb: 244 239 233;
+  --soft-rgb: 143 139 134;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-2: rgba(255, 255, 255, 0.14);
+  --glass-tint: linear-gradient(160deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.025) 38%, rgba(255, 255, 255, 0.015) 62%, rgba(255, 255, 255, 0.05) 100%);
+  --glass-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.28), inset 0 -1px 1px rgba(255, 255, 255, 0.06), inset 0 0 22px rgba(255, 255, 255, 0.025), 0 24px 60px -24px rgba(0, 0, 0, 0.9), 0 2px 6px rgba(0, 0, 0, 0.35);
+  --glass-rim: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.12) 18%, rgba(255, 255, 255, 0.03) 45%, rgba(255, 150, 90, 0.18) 78%, rgba(255, 255, 255, 0.32) 100%);
+  --glass-sheen: rgba(255, 255, 255, 0.09);
+  --chip-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025));
+  --chip-ring: inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+.theme-light {
+  --bg: var(--paper);
+  --fg-rgb: 12 10 9;
+  --soft-rgb: 104 98 92;
+  --line: rgba(20, 14, 10, 0.1);
+  --line-2: rgba(20, 14, 10, 0.16);
+  --glass-tint: linear-gradient(160deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.55) 45%, rgba(255, 255, 255, 0.7) 100%);
+  --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), inset 0 -1px 1px rgba(20, 14, 10, 0.04), 0 30px 60px -30px rgba(60, 30, 10, 0.28), 0 2px 6px rgba(20, 14, 10, 0.06);
+  --glass-rim: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(20, 14, 10, 0.08) 40%, rgba(255, 120, 50, 0.22) 80%, rgba(255, 255, 255, 0.9) 100%);
+  --glass-sheen: rgba(255, 255, 255, 0.7);
+  --chip-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.6));
+  --chip-ring: inset 0 1px 0 #fff, inset 0 0 0 1px rgba(20, 14, 10, 0.08);
+  color-scheme: light;
+}
+.theme-dark,
+.theme-light {
+  background-color: var(--bg);
+  color: rgb(var(--fg-rgb));
+}
+
+@layer base {
+  html {
+    background: var(--ink);
+    -webkit-text-size-adjust: 100%;
+  }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  body {
+    background: var(--ink);
+    color: var(--bone);
+    font-family: Geist, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+  ::selection { background: var(--orange); color: #000; }
+  :focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  img { user-select: none; }
+}
+
+@layer components {
+/* ---------- Type ---------- */
+.eyebrow {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--soft-rgb));
+}
+.eyebrow b { color: var(--orange); font-weight: 500; }
+
+.display {
+  font-family: 'Geist Pixel Square', Geist, monospace;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.02;
+  color: rgb(var(--fg-rgb));
+  text-wrap: balance;
+}
+.lead {
+  color: rgb(var(--soft-rgb));
+  font-size: 17px;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+@media (min-width: 1024px) { .lead { font-size: 19px; } }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 18px;
+  border-radius: 9px;
+  font-size: 14.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  transition: transform 0.35s var(--ease-out), background-color 0.25s, box-shadow 0.35s var(--ease-out), color 0.25s;
+}
+.btn:active { transform: scale(0.97); }
+.btn-primary {
+  background: var(--orange);
+  color: #0a0400;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.2), 0 8px 30px -8px rgba(255, 85, 0, 0.7);
+}
+.btn-primary:hover { background: #ff6a1f; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 10px 40px -6px rgba(255, 85, 0, 0.85); }
+.btn-light {
+  background: var(--bone);
+  color: #000;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+}
+.btn-light:hover { background: #fff; }
+.btn-dark {
+  background: #0c0a09;
+  color: var(--bone);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 10px 30px -12px rgba(0, 0, 0, 0.6);
+}
+.btn-dark:hover { background: #1c1917; }
+.btn-lg { height: 50px; padding: 0 24px; font-size: 15.5px; border-radius: 11px; }
+.btn .arrow { transition: transform 0.35s var(--ease-out); }
+.btn:hover .arrow { transform: translateX(3px); }
+
+/* ---------- Liquid glass ----------
+   Layered like Apple's material: a translucent tint, a heavy blur that
+   saturates what sits behind it, a specular rim that is brighter where
+   light hits (top-left), and a soft highlight that follows the pointer.
+   In Chromium, [data-liquid] elements also get true edge refraction via an
+   SVG displacement map (see lib/liquid.js). */
+.glass {
+  position: relative;
+  isolation: isolate;
+  background: var(--glass-tint);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
+  box-shadow: var(--glass-shadow);
+}
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--glass-rim);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2;
+}
+.glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(520px circle at var(--mx, 30%) var(--my, -20%), var(--glass-sheen), transparent 45%);
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 0.4s;
+}
+.glass-strong {
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.035) 40%, rgba(255, 255, 255, 0.02) 65%, rgba(255, 255, 255, 0.06) 100%),
+    rgba(10, 8, 7, 0.35);
+}
+.glass-dark {
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.015) 45%, rgba(255, 255, 255, 0.035) 100%),
+    rgba(6, 5, 4, 0.55);
+}
+.glass-orange {
+  background:
+    linear-gradient(160deg, rgba(255, 140, 70, 0.28) 0%, rgba(255, 85, 0, 0.12) 45%, rgba(255, 85, 0, 0.2) 100%);
+}
+/* Chromium-only refraction layer, applied by lib/liquid.js */
+.liquid-on[data-liquid] {
+  -webkit-backdrop-filter: var(--liquid-filter) saturate(180%);
+  backdrop-filter: var(--liquid-filter) saturate(180%);
+}
+
+/* Glass pill used for tags and chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  color: rgb(var(--fg-rgb) / 0.82);
+  background: var(--chip-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  box-shadow: var(--chip-ring);
+}
+
+/* ---------- Structure ---------- */
+.shell { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 20px; }
+@media (min-width: 768px) { .shell { padding: 0 40px; } }
+
+.hair { border-color: var(--line); }
+
+/* Orange ambient light that gives glass something to bend */
+.ember-glow {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(80px);
+  background: radial-gradient(circle, rgba(255, 85, 0, 0.55), rgba(255, 85, 0, 0) 70%);
+  pointer-events: none;
+}
+
+.dot-grid {
+  background-image: radial-gradient(rgb(var(--fg-rgb) / 0.09) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.pulse-dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--orange);
+}
+.pulse-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 4px;
+  border: 1px solid var(--orange);
+  animation: ping 2.2s var(--ease-out) infinite;
+}
+@keyframes ping { 0% { opacity: 0.8; transform: scale(0.6); } 100% { opacity: 0; transform: scale(1.8); } }
+
+
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes scrollcue { 0% { transform: translateY(-100%); } 100% { transform: translateY(200%); } }
+}
+
+/* Pointer depth (lib/motion usePointerDepth). Uses `translate` so it
+   composes with the scroll parallax GSAP writes to `transform`. */
+[data-depth] {
+  --px: 0;
+  --py: 0;
+  translate: calc(var(--px) * 1px) calc(var(--py) * 1px);
+}
+
+@keyframes float-y { 50% { transform: translateY(-10px); } }
+.float { animation: float-y 7s ease-in-out infinite; }
+.float-late { animation: float-y 8s ease-in-out -3s infinite; }
+
+/* Reveal: set by GSAP; keep content visible if JS never runs */
+[data-reveal] { will-change: transform, opacity; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+/* Ecosystem honeycomb: rows of round logos packed hexagonally. */
+.comb { --cell: clamp(48px, 7.2vw, 96px); --gap: calc(var(--cell) * 0.2); }
+.comb-row + .comb-row { margin-top: calc((var(--cell) + var(--gap)) * 0.866 - var(--cell)); }
+.comb-cell { width: var(--cell); height: var(--cell); }
+.comb:not(.is-in) .comb-cell { opacity: 0; scale: 0.4; }
+.comb.is-in .comb-cell { animation: comb-in 0.9s var(--ease-out) both; }
+@keyframes comb-in { from { opacity: 0; scale: 0.4; } to { opacity: 1; scale: 1; } }
+@keyframes row-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
