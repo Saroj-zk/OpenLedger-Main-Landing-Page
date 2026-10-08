@@ -49,9 +49,9 @@ function Mark({ file, ratio, name }) {
 
 export default function Backers() {
   return (
-    <section id="backed" data-theme="light" data-parallax-root aria-labelledby="backed-title" className="theme-light relative overflow-hidden py-28 lg:py-36">
+    <section id="backed" data-theme="dark" data-parallax-root aria-labelledby="backed-title" className="theme-dark relative overflow-hidden border-b hair py-28 lg:py-36">
       <div data-speed="0.2" className="absolute inset-x-0 top-[5%] h-[70%] opacity-60 [mask-image:linear-gradient(90deg,transparent,#000_25%,#000_75%,transparent)]">
-        <WaveField tone="light" lines={26} y={0.45} tilt={0.12} amplitude={0.12} spread={0.3} speed={0.5} />
+        <WaveField tone="dark" lines={30} y={0.45} tilt={0.12} amplitude={0.1} spread={0.3} speed={0.5} />
       </div>
 
       <div className="shell relative">
@@ -64,9 +64,9 @@ export default function Backers() {
           </h2>
         </div>
 
-        <ul className="mt-16 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:mt-20 lg:grid-cols-5" data-reveal>
+        <ul className="mt-16 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:mt-20 lg:grid-cols-5">
           {backers.map(([name, file, ratio]) => (
-            <li key={file} className="glass group grid h-[108px] place-items-center rounded-[20px] transition-transform duration-500 ease-[cubic-bezier(.16,1,.3,1)] hover:-translate-y-1 sm:h-[124px]">
+            <li key={file} data-reveal className="glass glass-dark group grid h-[108px] place-items-center rounded-[20px] transition-transform duration-500 ease-[cubic-bezier(.16,1,.3,1)] hover:-translate-y-1 sm:h-[124px]">
               <Mark file={file} ratio={ratio} name={name} />
             </li>
           ))}
@@ -76,10 +76,10 @@ export default function Backers() {
           <p className="eyebrow shrink-0">Supported by</p>
           <span className="h-px flex-1 bg-[var(--line-2)]" aria-hidden="true" />
         </div>
-        <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {supporters.map(([name, role]) => (
-            <li key={name} className="glass flex items-center gap-4 rounded-[20px] p-5">
-              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[12px] bg-[#0c0a09] font-pixel text-[16px] text-orange" aria-hidden="true">
+            <li key={name} data-reveal className="glass glass-dark flex items-center gap-4 rounded-[20px] p-5">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[12px] bg-orange/10 font-pixel text-[16px] text-orange ring-1 ring-orange/30" aria-hidden="true">
                 {initials(name)}
               </span>
               <div>
@@ -88,9 +88,11 @@ export default function Backers() {
               </div>
             </li>
           ))}
-          <li className="flex items-center gap-3 rounded-[20px] border border-dashed border-[var(--line-2)] p-5 text-[17px] font-medium text-fg/70">
-            <span className="h-px w-8 bg-orange" aria-hidden="true" />
-            And more
+          <li data-reveal className="glass glass-dark flex items-center gap-4 rounded-[20px] p-5">
+            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[12px] bg-orange/10 font-pixel text-[22px] text-orange ring-1 ring-orange/30" aria-hidden="true">
+              +
+            </span>
+            <p className="text-[17px] font-medium tracking-[-0.015em] text-fg">And more</p>
           </li>
         </ul>
       </div>

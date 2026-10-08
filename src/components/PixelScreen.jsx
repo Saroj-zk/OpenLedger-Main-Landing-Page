@@ -75,7 +75,7 @@ export default function PixelScreen({
 
     const resize = () => {
       const r = canvas.getBoundingClientRect();
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       w = r.width;
       h = r.height;
       canvas.width = Math.round(w * dpr);

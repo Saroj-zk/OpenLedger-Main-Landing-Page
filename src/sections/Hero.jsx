@@ -25,22 +25,31 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black to-transparent" aria-hidden="true" />
 
       <div className="shell relative z-10 w-full">
-        <div data-hero-exit className="mx-auto max-w-[980px] text-center">
-          <h1 className="display text-[44px] leading-[0.98] sm:text-[84px] lg:text-[112px]">
-            Your AI.
+        <div data-hero-exit className="mx-auto max-w-[1180px] text-center">
+          <p className="eyebrow mb-7" data-intro>
+            <b>//</b> OpenLedger <b>//</b>
+          </p>
+          <h1 className="display text-[38px] leading-[1.05] sm:text-[60px] lg:text-[92px]">
+            Unfiltered AI.
             <br />
-            <span className="text-orange">On your terms.</span>
+            <span className="text-orange">Unbroken privacy.</span>
           </h1>
 
-          <p className="lead mx-auto mt-8 max-w-[600px] !text-fg/75">
-            No lock-in to a single model. No memory that resets. No data you don’t control. OpenLedger is the AI blockchain that puts models, memory, and privacy in your hands.
+          <p className="lead mx-auto mt-8 max-w-[640px] !text-fg/75" data-intro>
+            Every leading AI model behind one private gateway, with anonymous routing and confidential compute built in.
           </p>
 
-          <div className="mt-10 flex justify-center">
+          <div className="mt-10 flex justify-center" data-intro>
             <a {...heyOpenLink} className="btn btn-primary btn-lg">
               Meet HeyOpen <Arrow />
             </a>
           </div>
+
+          <p data-intro className="mt-10 flex flex-col items-center justify-center gap-x-3 gap-y-1 font-mono text-[12px] uppercase tracking-[0.12em] text-bone/55 sm:flex-row">
+            <span>Private by architecture.</span>
+            <span className="hidden h-1.5 w-1.5 rounded-[2px] bg-orange sm:block" aria-hidden="true" />
+            <span>Open by choice.</span>
+          </p>
         </div>
       </div>
 

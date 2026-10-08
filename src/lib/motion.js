@@ -1,15 +1,31 @@
 import { useEffect, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitText } from 'gsap/SplitText';
 import Lenis from 'lenis';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export const prefersReducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Lets CSS hold animated elements in their start state before the first paint (see index.css),
+// so nothing flashes visible and then jumps to hidden when its animation begins.
+if (typeof document !== 'undefined' && !prefersReducedMotion()) document.documentElement.classList.add('js-motion');
+
 let lenisInstance = null;
 export const getLenis = () => lenisInstance;
+
+/*
+ * Decorative canvases (waves, pixel art) skip drawing while the page is
+ * scrolling and resume once it settles. Parallax still moves them, so the
+ * pause is invisible, but it frees the main thread for smooth scrolling.
+ */
+let scrollingUntil = 0;
+if (typeof window !== 'undefined') {
+  window.addEventListener('scroll', () => { scrollingUntil = performance.now() + 150; }, { passive: true });
+}
+export const isScrolling = () => performance.now() < scrollingUntil;
 
 /**
  * One Lenis instance for the whole page, driven by GSAP's ticker so
@@ -19,7 +35,7 @@ export function useSmoothScroll() {
   useEffect(() => {
     if (prefersReducedMotion()) return undefined;
 
-    const lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1, anchors: { offset: -84 } });
+    const lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1, anchors: { offset: -84 } });
     lenisInstance = lenis;
     lenis.on('scroll', ScrollTrigger.update);
     const tick = (time) => lenis.raf(time * 1000);
@@ -39,8 +55,10 @@ export function useSmoothScroll() {
  *   data-speed="0.3"       – drifts at a different rate than the page while its section is in view
  *   data-drift="12"        – slides horizontally from -12% to 12% of its width across the section
  *   data-hero-exit         – lifts and fades as the hero scrolls away
- *   data-reveal            – fades up once when it enters the viewport
+ *   data-reveal            – fades up once when it enters the viewport (staggered with its neighbours)
  *   data-scale-in          – grows from 0.92 to 1 while scrolling into view
+ *   data-intro             – part of the hero's entrance on page load
+ * Every h1/h2 with the .display class rises line by line from behind a mask.
  */
 export function useScrollScene(rootRef) {
   useLayoutEffect(() => {
@@ -100,15 +118,53 @@ export function useScrollScene(rootRef) {
         );
       });
 
-      ScrollTrigger.batch('[data-reveal]', {
-        start: 'top 88%',
+      // Headings: each line slides up from behind its own mask. autoSplit re-splits when the
+      // pixel font finishes loading or the width changes, so line breaks always match the layout.
+      gsap.utils.toArray('h1.display, h2.display').forEach((heading) => {
+        const hero = heading.tagName === 'H1';
+        SplitText.create(heading, {
+          type: 'lines',
+          mask: 'lines',
+          autoSplit: true,
+          onSplit(self) {
+            // Masks clip at the line box, but the pixel font's descenders (p, y, g) hang below it.
+            // Grow each mask downward and pull the next line back up so layout doesn't shift.
+            self.masks.forEach((m) => {
+              m.style.paddingBottom = '0.22em';
+              m.style.marginBottom = '-0.22em';
+            });
+            gsap.set(heading, { autoAlpha: 1 });
+            return gsap.from(self.lines, {
+              yPercent: 110,
+              duration: hero ? 1.25 : 1.05,
+              ease: 'expo.out',
+              stagger: 0.1,
+              delay: hero ? 0.15 : 0,
+              scrollTrigger: hero ? undefined : { trigger: heading, start: 'top 88%', once: true },
+            });
+          },
+        });
+      });
+
+      // Hero entrance: label, copy, button and tagline follow the headline in.
+      gsap.fromTo(
+        '[data-intro]',
+        { autoAlpha: 0, y: 22 },
+        { autoAlpha: 1, y: 0, duration: 1, ease: 'expo.out', stagger: 0.1, delay: 0.55 },
+      );
+
+      ScrollTrigger.batch('[data-reveal]:not(.display)', {
+        start: 'top 90%',
         once: true,
-        onEnter: (els) =>
-          gsap.fromTo(
-            els,
-            { autoAlpha: 0, y: 28, filter: 'blur(6px)' },
-            { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'expo.out', stagger: 0.08, clearProps: 'filter' },
-          ),
+        onEnter: (els) => {
+          // A fast jump (nav link, deep link) enters many sections in one batch. Staggering
+          // all of them would leave the ones on screen waiting seconds for their turn, so
+          // only what's in view animates; anything already scrolled past just appears.
+          const inView = els.filter((el) => el.getBoundingClientRect().bottom > 0);
+          const passed = els.filter((el) => !inView.includes(el));
+          if (passed.length) gsap.set(passed, { autoAlpha: 1, y: 0 });
+          gsap.fromTo(inView, { autoAlpha: 0, y: 32 }, { autoAlpha: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.08 });
+        },
       });
     }, root);
 

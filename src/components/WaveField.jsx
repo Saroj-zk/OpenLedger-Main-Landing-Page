@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { prefersReducedMotion } from '@/lib/motion';
+import { isScrolling, prefersReducedMotion } from '@/lib/motion';
 
 /*
  * A ribbon of fine wave lines. Each line follows the same slow carrier wave,
@@ -64,11 +64,11 @@ export default function WaveField({
     let raf = 0;
     let visible = false;
     let gradient = null;
-    const start = performance.now();
+    let clock = 0; // seconds of animation actually shown
 
     const resize = () => {
       const r = canvas.getBoundingClientRect();
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       w = r.width;
       h = r.height;
       canvas.width = Math.max(1, Math.round(w * dpr));
@@ -77,10 +77,10 @@ export default function WaveField({
       palette.stops.forEach(([o, c]) => gradient.addColorStop(o, c));
     };
 
-    const render = (now) => {
-      const t = reduce ? 4 : ((now - start) / 1000) * speed;
+    const render = () => {
+      const t = reduce ? 4 : clock * speed;
       const p = t * 0.22;
-      const step = w > 900 ? 7 : 5;
+      const step = w > 900 ? 10 : 7;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
       ctx.strokeStyle = gradient;
@@ -112,14 +112,21 @@ export default function WaveField({
       pointer.energy *= 0.96;
     };
 
+    let last = 0;
     const loop = (now) => {
       raf = requestAnimationFrame(loop);
-      if (visible) render(now);
+      if (!visible || isScrolling() || now - last < 33) {
+        if (!visible || isScrolling()) last = now; // paused: don't bank the gap
+        return;
+      }
+      clock += Math.min(now - last, 100) / 1000;
+      last = now;
+      render();
     };
 
     const ro = new ResizeObserver(() => {
       resize();
-      render(performance.now());
+      render();
     });
     ro.observe(canvas);
     const io = new IntersectionObserver(([entry]) => {
@@ -136,7 +143,7 @@ export default function WaveField({
     if (interactive && !reduce) window.addEventListener('pointermove', onMove, { passive: true });
 
     resize();
-    render(performance.now());
+    render();
     if (!reduce) raf = requestAnimationFrame(loop);
 
     return () => {

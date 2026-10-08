@@ -151,7 +151,7 @@ export default function Ecosystem() {
 
       <div className="shell relative grid items-center gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-10">
         <SectionHead label="The OpenLedger Ecosystem" title={<>The AI frontier <span className="text-orange">keeps getting bigger.</span></>}>
-          And the OpenLedger ecosystem keeps expanding with it.
+          So does ours, across private AI, infrastructure, and whatever comes next.
         </SectionHead>
         <Comb />
       </div>

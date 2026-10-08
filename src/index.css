@@ -173,8 +173,8 @@
   position: relative;
   isolation: isolate;
   background: var(--glass-tint);
-  -webkit-backdrop-filter: blur(22px) saturate(180%);
-  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
   box-shadow: var(--glass-shadow);
 }
 .glass::before {
@@ -247,8 +247,7 @@
 .ember-glow {
   position: absolute;
   border-radius: 999px;
-  filter: blur(80px);
-  background: radial-gradient(circle, rgba(255, 85, 0, 0.55), rgba(255, 85, 0, 0) 70%);
+  background: radial-gradient(circle, rgba(255, 85, 0, 0.42), rgba(255, 85, 0, 0.12) 40%, rgba(255, 85, 0, 0) 70%);
   pointer-events: none;
 }
 
@@ -291,11 +290,26 @@
 .float { animation: float-y 7s ease-in-out infinite; }
 .float-late { animation: float-y 8s ease-in-out -3s infinite; }
 
-/* Reveal: set by GSAP; keep content visible if JS never runs */
-[data-reveal] { will-change: transform, opacity; }
+/* Parallax layers get their own compositor layer so scrolling only moves pixels */
+[data-speed] { will-change: transform; }
+
+/* Start states for scroll animations (only when JS motion is on; see lib/motion.js) */
+.js-motion [data-reveal],
+.js-motion [data-intro],
+.js-motion h1.display,
+.js-motion h2.display {
+  visibility: hidden;
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+/* AI Stack visuals */
+@keyframes marquee-y { to { transform: translateY(-50%); } }
+@keyframes mem-pulse {
+  0% { border-color: rgba(255, 85, 0, 0.6); background: rgba(255, 85, 0, 0.12); }
+  100% { border-color: rgba(255, 255, 255, 0.07); background: rgba(255, 255, 255, 0.03); }
 }
 
 /* Ecosystem honeycomb: rows of round logos packed hexagonally. */

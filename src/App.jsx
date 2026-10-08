@@ -1,8 +1,9 @@
 import { useRef } from 'react';
 import Nav from '@/sections/Nav';
 import Hero from '@/sections/Hero';
-import BuiltForAI from '@/sections/BuiltForAI';
+import Privacy from '@/sections/Privacy';
 import Stack from '@/sections/Stack';
+import BuiltForAI from '@/sections/BuiltForAI';
 import HeyOpen from '@/sections/HeyOpen';
 import Ecosystem from '@/sections/Ecosystem';
 import Backers from '@/sections/Backers';
@@ -22,10 +23,11 @@ export default function App() {
       <Nav />
       <main id="main">
         <Hero />
-        <BuiltForAI />
+        <Privacy />
         <Stack />
         <HeyOpen />
         <Ecosystem />
+        <BuiltForAI />
         <Backers />
         <Cta />
       </main>

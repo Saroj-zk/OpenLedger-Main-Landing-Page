@@ -1,27 +1,26 @@
 import PixelScreen from '@/components/PixelScreen';
 import WaveField from '@/components/WaveField';
 import { attribution, interlock, lattice, liquidity } from '@/components/pixelScenes';
-import { SectionHead } from '@/components/ui';
 
 const pillars = [
   {
-    title: 'Purpose-Built for AI',
-    body: 'OpenLedger is designed from the ground up for AI participation. From model training to agent deployment, every component runs on-chain with precision.',
+    title: 'Built for AI',
+    body: 'Made for AI from day one, from training a model to deploying an agent.',
     scene: lattice,
   },
   {
-    title: 'AI Liquidity Layer',
-    body: 'Data, models, and agents are no longer static assets. OpenLedger makes them liquid and composable.',
+    title: 'Liquid AI Assets',
+    body: 'Data, models, and agents become assets you can own and build with.',
     scene: liquidity,
   },
   {
-    title: 'EVM-Compatible Infrastructure',
-    body: 'OpenLedger follows Ethereum standards. Connect your wallets, smart contracts, and L2 ecosystems with zero friction.',
+    title: 'EVM-Compatible',
+    body: 'Ethereum standards. Bring your wallet, contracts, and L2s as they are.',
     scene: interlock,
   },
   {
     title: 'Proof of Attribution',
-    body: 'Ensures all contributions are traceable, verifiable, and fairly rewarded.',
+    body: 'Every contribution traced, verified, and fairly rewarded.',
     scene: attribution,
   },
 ];
@@ -34,9 +33,23 @@ export default function BuiltForAI() {
       </div>
 
       <div className="shell relative">
-        <SectionHead label="Built for AI" title={<>Built for where AI is <span className="text-orange">going.</span></>}>
-          A foundation for AI that works across models, remembers context, protects what’s private, and goes beyond conversation.
-        </SectionHead>
+        <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-16">
+          <div>
+            <div className="mb-5 inline-flex items-center rounded-full bg-fg/[0.07] px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-fg/80" data-reveal>
+              WHY OPENLEDGER
+            </div>
+            <h2 className="display text-[30px] sm:text-[52px] lg:text-[64px] font-bold leading-[1.08] text-fg" data-reveal>
+              Off the record for you.
+              <br />
+              <span className="text-orange">On the record for AI.</span>
+            </h2>
+          </div>
+          <div data-reveal>
+            <p className="lead text-[17px] sm:text-[19px] leading-relaxed text-soft font-normal">
+              OpenLedger keeps your prompts private and puts every model, dataset, and contribution on-chain, where it can be traced, owned, and rewarded.
+            </p>
+          </div>
+        </div>
 
         <ol className="mt-16 grid gap-4 sm:grid-cols-2 lg:mt-20 xl:grid-cols-4">
           {pillars.map((p, i) => (

@@ -3,10 +3,11 @@ import { Logo } from '@/components/ui';
 import { heyOpenLink } from '@/lib/links';
 
 const links = [
-  ['Built for AI', '#built'],
+  ['Privacy', '#privacy'],
   ['AI Stack', '#stack'],
   ['HeyOpen', '#heyopen'],
   ['Ecosystem', '#ecosystem'],
+  ['Why OpenLedger', '#built'],
 ];
 
 // The bar floats over alternating black and paper sections, so it takes the
