@@ -10,16 +10,21 @@ import Backers from '@/sections/Backers';
 import { Cta, Footer } from '@/sections/Closing';
 import { useGlassSheen, useScrollScene, useSmoothScroll } from '@/lib/motion';
 import { useLiquidGlass } from '@/lib/liquid';
+import CopySwitcher from '@/components/CopySwitcher';
+import { useCopy } from '@/content/context';
 
 export default function App() {
   const root = useRef(null);
+  const { version } = useCopy();
   useSmoothScroll();
-  useScrollScene(root);
-  useLiquidGlass(root);
+  // A copy switch remounts the page (key below) and re-runs the scroll scene,
+  // so headings are re-split and reveals re-armed for the new text.
+  useScrollScene(root, version);
+  useLiquidGlass(root, version);
   useGlassSheen();
 
   return (
-    <div ref={root} className="relative">
+    <div ref={root} key={version} className="relative">
       <Nav />
       <main id="main">
         <Hero />
@@ -32,6 +37,7 @@ export default function App() {
         <Cta />
       </main>
       <Footer />
+      <CopySwitcher />
     </div>
   );
 }

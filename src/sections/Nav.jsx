@@ -1,14 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Logo } from '@/components/ui';
 import { heyOpenLink } from '@/lib/links';
+import { useCopy } from '@/content/context';
 
-const links = [
-  ['Privacy', '#privacy'],
-  ['AI Stack', '#stack'],
-  ['HeyOpen', '#heyopen'],
-  ['Ecosystem', '#ecosystem'],
-  ['Why OpenLedger', '#built'],
-];
+const links = ['privacy', 'stack', 'heyopen', 'ecosystem', 'built'];
 
 // The bar floats over alternating black and paper sections, so it takes the
 // theme of whichever section is currently underneath it.
@@ -43,6 +38,7 @@ function useThemeUnder(y) {
 }
 
 export default function Nav() {
+  const { copy } = useCopy();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const theme = useThemeUnder(44);
@@ -77,10 +73,10 @@ export default function Nav() {
           </a>
 
           <ul className="hidden items-center gap-1 lg:flex">
-            {links.map(([label, href]) => (
-              <li key={href}>
-                <a href={href} className="rounded-lg px-3.5 py-2 text-[14px] text-fg/65 transition-colors hover:bg-fg/[0.06] hover:text-fg">
-                  {label}
+            {links.map((id) => (
+              <li key={id}>
+                <a href={`#${id}`} className="rounded-lg px-3.5 py-2 text-[14px] text-fg/65 transition-colors hover:bg-fg/[0.06] hover:text-fg">
+                  {copy.nav[id]}
                 </a>
               </li>
             ))}
@@ -88,7 +84,7 @@ export default function Nav() {
 
           <div className="flex items-center gap-2">
             <a {...heyOpenLink} className="btn btn-primary hidden !h-[42px] sm:inline-flex">
-              Meet HeyOpen
+              {copy.nav.cta}
             </a>
             <button
               type="button"
@@ -112,16 +108,16 @@ export default function Nav() {
           }`}
         >
           <ul className="p-2">
-            {links.map(([label, href]) => (
-              <li key={href}>
-                <a href={href} onClick={() => setOpen(false)} className="block rounded-xl px-4 py-3.5 text-[16px] text-fg/85 hover:bg-fg/[0.06]">
-                  {label}
+            {links.map((id) => (
+              <li key={id}>
+                <a href={`#${id}`} onClick={() => setOpen(false)} className="block rounded-xl px-4 py-3.5 text-[16px] text-fg/85 hover:bg-fg/[0.06]">
+                  {copy.nav[id]}
                 </a>
               </li>
             ))}
             <li className="p-2">
               <a {...heyOpenLink} onClick={() => setOpen(false)} className="btn btn-primary w-full">
-                Meet HeyOpen
+                {copy.nav.cta}
               </a>
             </li>
           </ul>

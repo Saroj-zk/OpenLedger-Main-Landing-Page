@@ -60,7 +60,7 @@ export function useSmoothScroll() {
  *   data-intro             – part of the hero's entrance on page load
  * Every h1/h2 with the .display class rises line by line from behind a mask.
  */
-export function useScrollScene(rootRef) {
+export function useScrollScene(rootRef, version) {
   useLayoutEffect(() => {
     const root = rootRef.current;
     if (!root) return undefined;
@@ -176,7 +176,7 @@ export function useScrollScene(rootRef) {
       window.removeEventListener('load', refresh);
       ctx.revert();
     };
-  }, [rootRef]);
+  }, [rootRef, version]);
 }
 
 /** Pointer-driven depth for elements marked data-depth, scoped to one container. */

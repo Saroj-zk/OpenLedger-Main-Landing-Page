@@ -129,7 +129,7 @@ export default function HeyOpenProduct() {
     <div
       ref={wrap}
       role="img"
-      aria-label={`HeyOpen chat: the model picker switching to ${model.name}, in Incognito mode`}
+      aria-label={`HeyOpen: the model picker switching to ${model.name}, in Incognito mode`}
       className="overflow-hidden rounded-[22px] shadow-[0_60px_120px_-50px_rgba(60,25,5,.6),0_0_0_1px_rgba(0,0,0,.85),inset_0_1px_0_rgba(255,255,255,.08)] sm:rounded-[26px]"
     >
       <Scaled width={W} height={H}>

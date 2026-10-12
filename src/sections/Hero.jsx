@@ -1,8 +1,14 @@
 import WaveField from '@/components/WaveField';
 import { Arrow } from '@/components/ui';
 import { heyOpenLink } from '@/lib/links';
+import { Headline } from '@/content/copy';
+import { useCopy } from '@/content/context';
 
 export default function Hero() {
+  const { copy } = useCopy();
+  const c = copy.hero;
+  // Longer headline lines step down a size so each part stays on one line.
+  const long = Math.max(c.h.a.length, c.h.b.length) > 20;
   return (
     <section
       id="top"
@@ -27,29 +33,30 @@ export default function Hero() {
       <div className="shell relative z-10 w-full">
         <div data-hero-exit className="mx-auto max-w-[1180px] text-center">
           <p className="eyebrow mb-7" data-intro>
-            <b>//</b> OpenLedger <b>//</b>
+            <b>//</b> {c.eyebrow} <b>//</b>
           </p>
-          <h1 className="display text-[38px] leading-[1.05] sm:text-[60px] lg:text-[92px]">
-            Unfiltered AI.
-            <br />
-            <span className="text-orange">Unbroken privacy.</span>
+          <h1 className={`display leading-[1.05] ${long ? 'text-[26px] sm:text-[50px] lg:text-[76px]' : 'text-[32px] sm:text-[60px] lg:text-[92px]'}`}>
+            <Headline h={c.h} />
           </h1>
 
           <p className="lead mx-auto mt-8 max-w-[640px] !text-fg/75" data-intro>
-            Every leading AI model behind one private gateway, with anonymous routing and confidential compute built in.
+            {c.sub}
           </p>
 
           <div className="mt-10 flex justify-center" data-intro>
             <a {...heyOpenLink} className="btn btn-primary btn-lg">
-              Meet HeyOpen <Arrow />
+              {c.cta} <Arrow />
             </a>
           </div>
 
-          <p data-intro className="mt-10 flex flex-col items-center justify-center gap-x-3 gap-y-1 font-mono text-[12px] uppercase tracking-[0.12em] text-bone/55 sm:flex-row">
-            <span>Private by architecture.</span>
-            <span className="hidden h-1.5 w-1.5 rounded-[2px] bg-orange sm:block" aria-hidden="true" />
-            <span>Open by choice.</span>
-          </p>
+          <ul data-intro className="mt-10 flex flex-col items-center justify-center gap-x-3 gap-y-1 font-mono text-[12px] uppercase tracking-[0.12em] text-bone/55 sm:flex-row" aria-label="Guarantees">
+            {c.line.map((t, i) => (
+              <li key={t} className="flex items-center gap-x-3">
+                {i > 0 && <span className="hidden h-1.5 w-1.5 rounded-[2px] bg-orange sm:block" aria-hidden="true" />}
+                {t}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 

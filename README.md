@@ -1,6 +1,6 @@
 # OpenLedger — Landing Page
 
-The marketing site for OpenLedger: *Unfiltered AI. Unbroken privacy.*
+The marketing site for OpenLedger: *Private access to every AI model.*
 
 Built with React 19, Vite, Tailwind CSS 3, GSAP (ScrollTrigger) and Lenis smooth scrolling.
 
@@ -17,9 +17,9 @@ npm run preview  # serve the production build
 
 | Path | What it is |
 | --- | --- |
-| `src/sections/` | One file per page section: Hero, Privacy, AI Stack, HeyOpen, Ecosystem, Why OpenLedger (`BuiltForAI.jsx`), Backers, CTA + footer |
+| `src/sections/` | One file per page section: Hero, Privacy, AI Stack, HeyOpen, Ecosystem, Protocol (`BuiltForAI.jsx`), Backers, CTA + footer |
 | `src/components/WaveField.jsx` | Canvas wave-line background used across sections |
-| `src/components/HeyOpenProduct.jsx` | Scaled, animated replica of the HeyOpen chat home |
+| `src/components/HeyOpenProduct.jsx` | Scaled, animated replica of the HeyOpen home screen |
 | `src/components/PixelScreen.jsx` | Pixel-grid renderer for the small animated illustrations |
 | `src/components/ui.jsx` | Logo (octopus mark), arrow, section heading |
 | `src/lib/motion.js` | Smooth scroll, parallax (`data-speed`), reveals (`data-reveal`) |

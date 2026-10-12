@@ -2,8 +2,14 @@ import HeyOpenProduct from '@/components/HeyOpenProduct';
 import WaveField from '@/components/WaveField';
 import { Arrow, Logo } from '@/components/ui';
 import { heyOpenLink } from '@/lib/links';
+import { Headline } from '@/content/copy';
+import { useCopy } from '@/content/context';
 
 export default function HeyOpen() {
+  const { copy } = useCopy();
+  const c = copy.heyopen;
+  // A long heading line gets a wider copy column and one size down, so each part stays on one line.
+  const long = Math.max(c.h.a.length, c.h.b.length) > 20;
   return (
     <section id="heyopen" data-theme="light" data-parallax-root className="theme-light relative overflow-hidden py-28 lg:py-40">
       <div data-speed="0.2" className="absolute inset-x-0 bottom-[-6%] h-[65%] opacity-70 [mask-image:linear-gradient(180deg,transparent,#000_40%)]">
@@ -13,20 +19,22 @@ export default function HeyOpen() {
 
       <div className="shell relative">
         {/* Copy and the OPEN card share one row: the card stretches to the copy's exact height */}
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-stretch lg:gap-20">
+        <div className={`grid gap-10 lg:items-stretch ${long ? 'lg:grid-cols-[1.35fr_0.85fr] lg:gap-14' : 'lg:grid-cols-[1.1fr_1fr] lg:gap-20'}`}>
           <div>
             <p className="eyebrow mb-5" data-reveal>
-              <b>//</b> Open in action <b>//</b>
+              <b>//</b> {c.label} <b>//</b>
             </p>
-            <h2 className="display text-[48px] sm:text-[64px] lg:text-[80px]" data-reveal>
-              Meet <span className="text-orange">HeyOpen.</span>
+            <h2 className={`display ${long ? 'text-[34px] sm:text-[46px] lg:text-[54px]' : 'text-[38px] sm:text-[52px] lg:text-[64px]'}`} data-reveal>
+              <Headline h={c.h} />
             </h2>
-            <p className="lead mt-6 max-w-[540px]" data-reveal>
-              Private AI chat with every leading model, a memory that follows you, and uncensored options when you want them.
-            </p>
+            {[].concat(c.lead).map((t, i) => (
+              <p key={t} className={`lead max-w-[540px] ${i ? 'mt-4' : 'mt-6'}`} data-reveal>
+                {t}
+              </p>
+            ))}
             <div className="mt-9" data-reveal>
               <a {...heyOpenLink} className="btn btn-primary btn-lg">
-                Meet HeyOpen <Arrow />
+                {c.cta} <Arrow />
               </a>
             </div>
           </div>
@@ -37,10 +45,10 @@ export default function HeyOpen() {
             </span>
             <div>
               <h3 className="display text-[30px] sm:text-[38px]">
-                Powered by <span className="text-orange">OPEN.</span>
+                <Headline h={c.open.h} />
               </h3>
               <p className="mt-3 max-w-[460px] text-[16px] leading-relaxed text-soft">
-                OPEN fuels model access, memory, agents, and x402 interactions across HeyOpen.
+                {c.open.body}
               </p>
             </div>
           </div>

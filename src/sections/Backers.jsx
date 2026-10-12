@@ -1,4 +1,6 @@
 import WaveField from '@/components/WaveField';
+import { Headline } from '@/content/copy';
+import { useCopy } from '@/content/context';
 
 // Logos from openledger.xyz, flattened to single-colour marks so they can be
 // tinted with the theme. `ratio` is the mark's width / height, used to give
@@ -48,8 +50,10 @@ function Mark({ file, ratio, name }) {
 }
 
 export default function Backers() {
+  const { copy } = useCopy();
+  const c = copy.investors;
   return (
-    <section id="backed" data-theme="dark" data-parallax-root aria-labelledby="backed-title" className="theme-dark relative overflow-hidden border-b hair py-28 lg:py-36">
+    <section id="backed" data-theme="dark" data-parallax-root aria-labelledby="backed-title" className="theme-dark relative overflow-hidden py-28 lg:py-36">
       <div data-speed="0.2" className="absolute inset-x-0 top-[5%] h-[70%] opacity-60 [mask-image:linear-gradient(90deg,transparent,#000_25%,#000_75%,transparent)]">
         <WaveField tone="dark" lines={30} y={0.45} tilt={0.12} amplitude={0.1} spread={0.3} speed={0.5} />
       </div>
@@ -57,11 +61,16 @@ export default function Backers() {
       <div className="shell relative">
         <div className="mx-auto max-w-[860px] text-center">
           <p className="eyebrow mb-5" data-reveal>
-            <b>//</b> Backed &amp; Supported <b>//</b>
+            <b>//</b> {c.label} <b>//</b>
           </p>
           <h2 id="backed-title" className="display text-[40px] sm:text-[54px] lg:text-[68px]" data-reveal>
-            Backed by leaders across <span className="text-orange">AI and crypto.</span>
+            <Headline h={c.h} />
           </h2>
+          {c.sub && (
+            <p className="lead mx-auto mt-6 max-w-[620px]" data-reveal>
+              {c.sub}
+            </p>
+          )}
         </div>
 
         <ul className="mt-16 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:mt-20 lg:grid-cols-5">

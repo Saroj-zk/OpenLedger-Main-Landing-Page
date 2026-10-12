@@ -1,17 +1,14 @@
 import WaveField from '@/components/WaveField';
 import { Arrow, Logo } from '@/components/ui';
 import { SOCIALS, heyOpenLink } from '@/lib/links';
+import { Headline } from '@/content/copy';
+import { useCopy } from '@/content/context';
 
-const footerLinks = [
-  ['Privacy', '#privacy'],
-  ['AI Stack', '#stack'],
-  ['HeyOpen', '#heyopen'],
-  ['Ecosystem', '#ecosystem'],
-  ['Why OpenLedger', '#built'],
-  ['Backed & Supported', '#backed'],
-];
+const footerLinks = ['privacy', 'stack', 'heyopen', 'ecosystem', 'built', 'backed'];
 
 export function Cta() {
+  const { copy } = useCopy();
+  const c = copy.cta;
   return (
     <section id="cta" data-theme="dark" data-parallax-root className="theme-dark relative overflow-hidden py-32 lg:py-48">
       <div data-speed="0.25" className="ember-glow left-1/2 top-1/2 h-[420px] w-[70%] -translate-x-1/2 -translate-y-1/2 opacity-35" aria-hidden="true" />
@@ -21,20 +18,20 @@ export function Cta() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(45%_40%_at_50%_50%,rgba(0,0,0,.8),transparent_80%)]" aria-hidden="true" />
 
       <div className="shell relative text-center">
-        <p className="eyebrow mb-6" data-reveal>
-          <b>//</b> Start now <b>//</b>
-        </p>
+        {c.eyebrow && (
+          <p className="eyebrow mb-6" data-reveal>
+            <b>//</b> {c.eyebrow} <b>//</b>
+          </p>
+        )}
         <h2 className="display mx-auto max-w-[1000px] text-[42px] sm:text-[64px] lg:text-[84px]" data-reveal>
-          The private way to AI
-          <br />
-          <span className="text-orange">starts here.</span>
+          <Headline h={c.h} />
         </h2>
         <p className="lead mx-auto mt-7 max-w-[580px] !text-fg/75" data-reveal>
-          One click to HeyOpen. No sign-up to get going.
+          {c.sub}
         </p>
         <div className="mt-10 flex justify-center" data-reveal>
           <a {...heyOpenLink} className="btn btn-primary btn-lg">
-            Meet HeyOpen <Arrow />
+            {c.cta} <Arrow />
           </a>
         </div>
       </div>
@@ -52,6 +49,7 @@ const SOCIAL_ICONS = {
 };
 
 export function Footer() {
+  const { copy } = useCopy();
   return (
     <footer data-theme="dark" data-parallax-root className="theme-dark relative overflow-hidden border-t hair pt-14">
       <div className="shell flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
@@ -61,10 +59,10 @@ export function Footer() {
         </a>
         <nav aria-label="Footer">
           <ul className="flex flex-wrap gap-x-8 gap-y-3">
-            {footerLinks.map(([label, href]) => (
-              <li key={href}>
-                <a href={href} className="text-[14.5px] text-bone/65 transition-colors hover:text-orange">
-                  {label}
+            {footerLinks.map((id) => (
+              <li key={id}>
+                <a href={`#${id}`} className="text-[14.5px] text-bone/65 transition-colors hover:text-orange">
+                  {copy.nav[id]}
                 </a>
               </li>
             ))}
