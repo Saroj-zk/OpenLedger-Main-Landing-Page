@@ -62,9 +62,6 @@ export default function Backers() {
 
       <div className="shell relative">
         <div className="mx-auto max-w-[860px] text-center">
-          <p className="eyebrow mb-5" data-reveal>
-            <b>//</b> {c.label} <b>//</b>
-          </p>
           <h2 id="backed-title" className="display text-[40px] sm:text-[54px] lg:text-[68px]" data-reveal>
             <Headline h={c.h} />
           </h2>

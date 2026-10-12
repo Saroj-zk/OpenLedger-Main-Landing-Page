@@ -156,7 +156,7 @@ export default function Ecosystem() {
       </div>
 
       <div className="shell relative grid items-center gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-10">
-        <SectionHead label={c.label} title={<Headline h={c.h} />}>
+        <SectionHead title={<Headline h={c.h} />}>
           {c.sub}
         </SectionHead>
         <Comb />

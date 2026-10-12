@@ -3,7 +3,7 @@ import { prefersReducedMotion } from '@/lib/motion';
 
 /*
  * A faithful, scaled copy of the HeyOpen chat home (ais.openledger.xyz/chat):
- * icon rail, "Ask anything." hero, composer with model picker, prompt chips.
+ * icon rail, "Hey Open." hero, composer with model picker, prompt chips.
  * It is laid out at the product's own pixel sizes and scaled to fit, so type
  * and spacing keep the real proportions. The model picker opens on a loop and
  * steps through real models to show switching without losing the session.
@@ -173,9 +173,7 @@ export default function HeyOpenProduct() {
 
             <div className="flex flex-1 flex-col items-center justify-center px-[24px] pb-[40px]">
               <h3 className="text-center font-fraunces text-[46px] font-medium leading-[1.08] tracking-[-1.2px] text-[#dcdcdc]">
-                Ask anything.
-                <br />
-                <span className="italic">Think in the open.</span>
+                Hey Open.
               </h3>
               <p className="mt-[18px] text-center text-[14.5px] leading-[1.7] text-[#a1a1aa]">
                 A private, multi-model AI experience

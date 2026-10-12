@@ -407,7 +407,7 @@ export default function Stack() {
       </div>
 
       <div className="shell relative">
-        <SectionHead label={c.label} title={<Headline h={c.h} />}>
+        <SectionHead title={<Headline h={c.h} />}>
           {c.sub}
         </SectionHead>
 

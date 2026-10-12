@@ -23,9 +23,6 @@ export default function HeyOpen() {
         {/* Copy and the OPEN card share one row: the card stretches to the copy's exact height */}
         <div className={`grid gap-10 lg:items-stretch ${long ? 'lg:grid-cols-[1.35fr_0.85fr] lg:gap-14' : 'lg:grid-cols-[1.1fr_1fr] lg:gap-20'}`}>
           <div>
-            <p className="eyebrow mb-5" data-reveal>
-              <b>//</b> {c.label} <b>//</b>
-            </p>
             <h2 className={`display ${long ? 'text-[34px] sm:text-[46px] lg:text-[54px]' : 'text-[38px] sm:text-[52px] lg:text-[64px]'}`} data-reveal>
               <Headline h={c.h} />
             </h2>

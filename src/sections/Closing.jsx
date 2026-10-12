@@ -20,11 +20,6 @@ export function Cta() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(45%_40%_at_50%_50%,rgba(0,0,0,.8),transparent_80%)]" aria-hidden="true" />
 
       <div className="shell relative text-center">
-        {c.eyebrow && (
-          <p className="eyebrow mb-6" data-reveal>
-            <b>//</b> {c.eyebrow} <b>//</b>
-          </p>
-        )}
         <h2 className="display mx-auto max-w-[1000px] text-[42px] sm:text-[64px] lg:text-[84px]" data-reveal>
           <Headline h={c.h} />
         </h2>

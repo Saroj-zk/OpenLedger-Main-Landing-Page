@@ -27,13 +27,10 @@ export function Arrow({ className = 'arrow h-3.5 w-3.5' }) {
   );
 }
 
-export function SectionHead({ label, title, children, align = 'left', className = '' }) {
+export function SectionHead({ title, children, align = 'left', className = '' }) {
   const center = align === 'center';
   return (
     <div className={`${center ? 'mx-auto text-center' : ''} max-w-[860px] ${className}`}>
-      <p className="eyebrow mb-5" data-reveal>
-        <b>//</b> {label} <b>//</b>
-      </p>
       <h2 className="display text-[40px] sm:text-[54px] lg:text-[68px]" data-reveal>
         {title}
       </h2>

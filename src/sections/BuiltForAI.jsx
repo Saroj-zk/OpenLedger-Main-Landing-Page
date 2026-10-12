@@ -34,9 +34,6 @@ export default function BuiltForAI() {
       <div className="shell relative">
         <div className="grid gap-8 lg:grid-cols-[1.3fr_0.7fr] lg:items-end lg:gap-16">
           <div>
-            <p className="eyebrow mb-5" data-reveal>
-              <b>//</b> {c.label} <b>//</b>
-            </p>
             <h2 className="display text-[38px] sm:text-[52px] lg:text-[64px]" data-reveal>
               <Headline h={c.h} />
             </h2>

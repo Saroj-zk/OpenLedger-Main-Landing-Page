@@ -34,9 +34,6 @@ export default function Hero() {
 
       <div className="shell relative z-10 w-full">
         <div data-hero-exit className="mx-auto max-w-[1180px] text-center">
-          <p className="eyebrow mb-7" data-intro>
-            <b>//</b> {c.eyebrow} <b>//</b>
-          </p>
           <h1 className={`display leading-[1.05] ${long ? 'text-[26px] sm:text-[50px] lg:text-[76px]' : 'text-[32px] sm:text-[60px] lg:text-[92px]'}`}>
             <Headline h={c.h} />
           </h1>

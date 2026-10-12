@@ -57,9 +57,6 @@ export default function Privacy() {
       <div className="shell relative">
         <div className={stacked ? 'grid gap-6' : 'grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-16'}>
           <div>
-            <p className="eyebrow mb-5" data-reveal>
-              <b>//</b> {c.label} <b>//</b>
-            </p>
             <h2 className="display text-[38px] sm:text-[52px] lg:text-[64px]" data-reveal>
               <Headline h={c.h} />
             </h2>
