@@ -1,5 +1,6 @@
 import HeyOpenProduct from '@/components/HeyOpenProduct';
 import WaveField from '@/components/WaveField';
+import { SectionSwitch } from '@/components/CopySwitcher';
 import { Arrow, Logo } from '@/components/ui';
 import { heyOpenLink } from '@/lib/links';
 import { Headline } from '@/content/copy';
@@ -12,6 +13,7 @@ export default function HeyOpen() {
   const long = Math.max(c.h.a.length, c.h.b.length) > 20;
   return (
     <section id="heyopen" data-theme="light" data-parallax-root className="theme-light relative overflow-hidden py-28 lg:py-40">
+      <SectionSwitch section="heyopen" />
       <div data-speed="0.2" className="absolute inset-x-0 bottom-[-6%] h-[65%] opacity-70 [mask-image:linear-gradient(180deg,transparent,#000_40%)]">
         <WaveField tone="light" lines={30} y={0.5} tilt={0.16} amplitude={0.1} spread={0.34} speed={0.6} />
       </div>

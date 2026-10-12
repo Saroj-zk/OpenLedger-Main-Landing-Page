@@ -1,4 +1,5 @@
 import WaveField from '@/components/WaveField';
+import { SectionSwitch } from '@/components/CopySwitcher';
 import { Headline } from '@/content/copy';
 import { useCopy } from '@/content/context';
 
@@ -48,6 +49,7 @@ export default function Privacy() {
   const stacked = Math.max(c.h.a.length, c.h.b.length) > 24;
   return (
     <section id="privacy" data-theme="light" data-parallax-root className="theme-light relative overflow-hidden py-28 lg:py-36">
+      <SectionSwitch section="privacy" />
       <div data-speed="0.2" className="absolute inset-x-0 top-[-6%] h-[55%] opacity-60 [mask-image:linear-gradient(180deg,transparent,#000_35%,#000_70%,transparent)]">
         <WaveField tone="light" lines={26} y={0.5} tilt={0.16} amplitude={0.1} spread={0.32} speed={0.6} />
       </div>

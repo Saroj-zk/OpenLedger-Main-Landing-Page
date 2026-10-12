@@ -1,4 +1,5 @@
 import WaveField from '@/components/WaveField';
+import { SectionSwitch } from '@/components/CopySwitcher';
 import { Arrow, Logo } from '@/components/ui';
 import { SOCIALS, heyOpenLink } from '@/lib/links';
 import { Headline } from '@/content/copy';
@@ -11,6 +12,7 @@ export function Cta() {
   const c = copy.cta;
   return (
     <section id="cta" data-theme="dark" data-parallax-root className="theme-dark relative overflow-hidden py-32 lg:py-48">
+      <SectionSwitch section="cta" />
       <div data-speed="0.25" className="ember-glow left-1/2 top-1/2 h-[420px] w-[70%] -translate-x-1/2 -translate-y-1/2 opacity-35" aria-hidden="true" />
       <div data-speed="0.15" className="absolute inset-x-0 bottom-[-4%] top-[42%]">
         <WaveField tone="dark" lines={56} y={0.55} tilt={-0.14} amplitude={0.14} spread={0.42} interactive />

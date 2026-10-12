@@ -15,16 +15,16 @@ import { useCopy } from '@/content/context';
 
 export default function App() {
   const root = useRef(null);
-  const { version } = useCopy();
+  const { signature } = useCopy();
   useSmoothScroll();
   // A copy switch remounts the page (key below) and re-runs the scroll scene,
   // so headings are re-split and reveals re-armed for the new text.
-  useScrollScene(root, version);
-  useLiquidGlass(root, version);
+  useScrollScene(root, signature);
+  useLiquidGlass(root, signature);
   useGlassSheen();
 
   return (
-    <div ref={root} key={version} className="relative">
+    <div ref={root} key={signature} className="relative">
       <Nav />
       <main id="main">
         <Hero />

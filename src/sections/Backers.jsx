@@ -1,4 +1,5 @@
 import WaveField from '@/components/WaveField';
+import { SectionSwitch } from '@/components/CopySwitcher';
 import { Headline } from '@/content/copy';
 import { useCopy } from '@/content/context';
 
@@ -54,6 +55,7 @@ export default function Backers() {
   const c = copy.investors;
   return (
     <section id="backed" data-theme="dark" data-parallax-root aria-labelledby="backed-title" className="theme-dark relative overflow-hidden py-28 lg:py-36">
+      <SectionSwitch section="investors" />
       <div data-speed="0.2" className="absolute inset-x-0 top-[5%] h-[70%] opacity-60 [mask-image:linear-gradient(90deg,transparent,#000_25%,#000_75%,transparent)]">
         <WaveField tone="dark" lines={30} y={0.45} tilt={0.12} amplitude={0.1} spread={0.3} speed={0.5} />
       </div>

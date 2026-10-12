@@ -1,5 +1,6 @@
 import PixelScreen from '@/components/PixelScreen';
 import WaveField from '@/components/WaveField';
+import { SectionSwitch } from '@/components/CopySwitcher';
 import { attribution, interlock, lattice, liquidity } from '@/components/pixelScenes';
 import { Headline } from '@/content/copy';
 import { useCopy } from '@/content/context';
@@ -25,6 +26,7 @@ export default function BuiltForAI() {
   const c = copy.protocol;
   return (
     <section id="built" data-theme="light" data-parallax-root className="theme-light relative overflow-hidden py-28 lg:py-40">
+      <SectionSwitch section="protocol" />
       <div data-speed="0.25" className="absolute inset-x-0 top-[-8%] h-[70%] opacity-80 [mask-image:linear-gradient(180deg,transparent,#000_30%,#000_70%,transparent)]">
         <WaveField tone="light" lines={30} y={0.5} tilt={-0.18} amplitude={0.12} spread={0.36} speed={0.7} />
       </div>

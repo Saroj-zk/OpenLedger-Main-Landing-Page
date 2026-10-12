@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import WaveField from '@/components/WaveField';
+import { SectionSwitch } from '@/components/CopySwitcher';
 import { SectionHead } from '@/components/ui';
 import { prefersReducedMotion } from '@/lib/motion';
 import { Headline } from '@/content/copy';
@@ -398,6 +399,7 @@ export default function Stack() {
   const spans = SPANS[c.cards.length];
   return (
     <section id="stack" data-theme="dark" data-parallax-root className="theme-dark relative overflow-hidden py-28 lg:py-40">
+      <SectionSwitch section="platform" />
       <div data-speed="0.3" className="ember-glow left-[-10%] top-[30%] h-[460px] w-[560px] opacity-40" aria-hidden="true" />
       <div data-speed="-0.25" className="ember-glow right-[-6%] top-[62%] h-[380px] w-[460px] opacity-35" aria-hidden="true" />
       <div data-speed="0.2" className="absolute inset-x-0 top-[6%] h-[45%] opacity-70">

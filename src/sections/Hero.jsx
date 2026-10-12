@@ -1,4 +1,5 @@
 import WaveField from '@/components/WaveField';
+import { SectionSwitch } from '@/components/CopySwitcher';
 import { Arrow } from '@/components/ui';
 import { heyOpenLink } from '@/lib/links';
 import { Headline } from '@/content/copy';
@@ -16,6 +17,7 @@ export default function Hero() {
       data-parallax-root
       className="theme-dark relative flex min-h-[100svh] items-center overflow-hidden pb-24 pt-[140px] lg:min-h-[max(100svh,800px)]"
     >
+      <SectionSwitch section="hero" />
       {/* Warm light the waves sit in */}
       <div data-speed="0.3" className="ember-glow left-1/2 top-[58%] h-[360px] w-[80%] -translate-x-1/2 opacity-30" aria-hidden="true" />
 

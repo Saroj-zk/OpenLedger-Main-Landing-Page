@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import WaveField from '@/components/WaveField';
+import { SectionSwitch } from '@/components/CopySwitcher';
 import { SectionHead } from '@/components/ui';
 import { prefersReducedMotion } from '@/lib/motion';
 import { Headline } from '@/content/copy';
@@ -148,6 +149,7 @@ export default function Ecosystem() {
   const c = copy.ecosystem;
   return (
     <section id="ecosystem" data-theme="dark" data-parallax-root className="theme-dark relative overflow-hidden py-28 lg:py-40">
+      <SectionSwitch section="ecosystem" />
       <div data-speed="0.3" className="ember-glow right-[5%] top-[35%] h-[460px] w-[560px] opacity-35" aria-hidden="true" />
       <div data-speed="0.15" className="absolute inset-x-0 top-[40%] h-[60%] opacity-70">
         <WaveField tone="dark" lines={40} y={0.5} tilt={0.14} amplitude={0.1} spread={0.36} speed={0.7} interactive />

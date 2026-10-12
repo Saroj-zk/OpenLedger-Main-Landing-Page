@@ -233,5 +233,17 @@ const v3 = {
 };
 
 export const VERSIONS = { 1: v1, 2: v2, 3: v3 };
+
+// Page sections that can each take their own variation, in page order.
+export const SECTIONS = [
+  { key: 'hero', label: 'Hero' },
+  { key: 'privacy', label: 'Privacy' },
+  { key: 'platform', label: 'Models' },
+  { key: 'heyopen', label: 'HeyOpen' },
+  { key: 'ecosystem', label: 'Ecosystem' },
+  { key: 'protocol', label: 'Infrastructure' },
+  { key: 'investors', label: 'Backers' },
+  { key: 'cta', label: 'Closing' },
+];
 export const VERSION_IDS = Object.keys(VERSIONS);
 export const DEFAULT_VERSION = VERSION_IDS[0];
