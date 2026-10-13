@@ -1,36 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import WaveField from '@/components/WaveField';
-import { SectionSwitch } from '@/components/CopySwitcher';
 import { SectionHead } from '@/components/ui';
-import { prefersReducedMotion } from '@/lib/motion';
-import { Headline } from '@/content/copy';
-import { useCopy } from '@/content/context';
+import { useTicker } from '@/lib/motion';
 
 /*
  * The OpenLedger AI stack. Each capability gets a small, live piece of the
  * HeyOpen product rather than an abstract illustration: the real model
- * picker, the model switch that keeps your memory, per-model context sharing,
- * token-aware routing, an agent paying a tool over x402, and an uncensored route.
+ * picker, the model switch that keeps your memory, token-aware routing,
+ * an agent paying a tool over x402, and an uncensored route.
  */
-
-/** Counts up on an interval while `ref` is on screen; stays at 0 for reduced motion. */
-function useTicker(ref, ms) {
-  const [tick, setTick] = useState(0);
-  useEffect(() => {
-    if (prefersReducedMotion()) return undefined;
-    let id = 0;
-    const io = new IntersectionObserver(([entry]) => {
-      clearInterval(id);
-      if (entry.isIntersecting) id = setInterval(() => setTick((t) => t + 1), ms);
-    });
-    io.observe(ref.current);
-    return () => {
-      clearInterval(id);
-      io.disconnect();
-    };
-  }, [ref, ms]);
-  return tick;
-}
 
 function Icon({ children, className = 'h-4 w-4' }) {
   return (
@@ -167,53 +145,6 @@ function MemoryVisual() {
           </li>
         ))}
       </ul>
-    </div>
-  );
-}
-
-/* ---------- Private Context: you choose what each model can read ---------- */
-const CONTEXT = ['Projects', 'Writing style', 'Health notes'];
-// What's shared with each model, as on/off per CONTEXT item.
-const SHARING = [
-  ['Claude Sonnet 5', 'claude', [1, 1, 0]],
-  ['Deepseek V4 Flash E2ee', 'deepseek', [1, 1, 1]],
-  ['GPT 5.1', 'gpt', [1, 0, 0]],
-];
-
-function ContextVisual() {
-  const ref = useRef(null);
-  const tick = useTicker(ref, 2600);
-  const [name, kind, on] = SHARING[tick % SHARING.length];
-  return (
-    <div ref={ref} className="flex h-full items-center px-5 sm:px-6">
-      <div className="w-full rounded-2xl border border-white/[0.08] bg-[#120e0b] p-3 shadow-[0_20px_40px_-20px_rgba(0,0,0,.9)]">
-        <div className="flex items-center gap-2 px-1 pb-2.5">
-          <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-bone/50">Shared with</span>
-          <span className="ml-auto flex h-7 items-center gap-2 rounded-full border border-[#3f3f46] bg-[#18181b] pl-2 pr-3 text-[12px] font-medium text-[#e4e4e7]">
-            <ModelMark kind={kind} name={name} className="h-3.5 w-3.5" />
-            <span key={name} className="animate-[row-in_.45s_var(--ease-out)_both]">
-              {name}
-            </span>
-          </span>
-        </div>
-        <ul className="space-y-1.5">
-          {CONTEXT.map((item, i) => (
-            <li key={item} className="flex items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.025] px-2.5 py-2">
-              <span className={`grid h-6 w-6 shrink-0 place-items-center rounded-md transition-colors duration-500 ${on[i] ? 'bg-orange/15 text-orange' : 'bg-white/[0.05] text-bone/35'}`}>
-                <Icon className="h-3.5 w-3.5">
-                  <rect width="18" height="11" x="3" y="11" rx="2" />
-                  <path d={on[i] ? 'M7 11V7a5 5 0 0 1 9.9-1' : 'M7 11V7a5 5 0 0 1 10 0v4'} />
-                </Icon>
-              </span>
-              <span className={`text-[12px] font-medium transition-colors duration-500 ${on[i] ? 'text-[#e4e4e7]' : 'text-bone/40'}`}>{item}</span>
-              {/* Share toggle */}
-              <span className={`relative ml-auto h-4 w-7 shrink-0 rounded-full transition-colors duration-500 ${on[i] ? 'bg-orange' : 'bg-white/[0.12]'}`}>
-                <span className={`absolute top-0.5 h-3 w-3 rounded-full bg-white shadow transition-[left] duration-500 ease-[cubic-bezier(.16,1,.3,1)] ${on[i] ? 'left-[14px]' : 'left-0.5'}`} />
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
     </div>
   );
 }
@@ -378,28 +309,47 @@ function UncensoredVisual() {
   );
 }
 
-const VISUALS = {
-  models: ModelsVisual,
-  memory: MemoryVisual,
-  context: ContextVisual,
-  tokens: TokensVisual,
-  agents: AgentVisual,
-  uncensored: UncensoredVisual,
-};
-
-// Bento spans on the 12-column grid, by how many cards the copy has.
-const SPANS = {
-  5: ['md:col-span-2 lg:col-span-7', 'lg:col-span-5', 'lg:col-span-4', 'lg:col-span-4', 'lg:col-span-4'],
-  6: ['lg:col-span-7', 'lg:col-span-5', 'lg:col-span-5', 'lg:col-span-7', 'lg:col-span-6', 'lg:col-span-6'],
-};
+const cards = [
+  {
+    label: 'Models',
+    title: '200+ models, each labeled.',
+    body: 'Proprietary and open-weight models side by side, with each one’s privacy level shown before you send.',
+    Visual: ModelsVisual,
+    span: 'md:col-span-2 lg:col-span-7',
+  },
+  {
+    label: 'Universal memory',
+    title: 'One memory across every model.',
+    body: 'Preferences, projects, and history follow you when you switch. You choose what each model can read.',
+    Visual: MemoryVisual,
+    span: 'lg:col-span-5',
+  },
+  {
+    label: 'Routing',
+    title: 'Pick a model, or let routing pick.',
+    body: 'Each request can be matched to a capable model at the lowest token cost.',
+    Visual: TokensVisual,
+    span: 'lg:col-span-4',
+  },
+  {
+    label: 'Agents + x402',
+    title: 'Agents that can pay their way.',
+    body: 'Agents call tools and paid APIs on your behalf. x402 settles each call automatically.',
+    Visual: AgentVisual,
+    span: 'lg:col-span-4',
+  },
+  {
+    label: 'Uncensored',
+    title: 'Uncensored models, clearly labeled.',
+    body: 'HeyOpen doesn’t add its own filtering on supported routes. Moderation comes from the model you pick.',
+    Visual: UncensoredVisual,
+    span: 'lg:col-span-4',
+  },
+];
 
 export default function Stack() {
-  const { copy } = useCopy();
-  const c = copy.platform;
-  const spans = SPANS[c.cards.length];
   return (
     <section id="stack" data-theme="dark" data-parallax-root className="theme-dark relative overflow-hidden py-28 lg:py-40">
-      <SectionSwitch section="platform" />
       <div data-speed="0.3" className="ember-glow left-[-10%] top-[30%] h-[460px] w-[560px] opacity-40" aria-hidden="true" />
       <div data-speed="-0.25" className="ember-glow right-[-6%] top-[62%] h-[380px] w-[460px] opacity-35" aria-hidden="true" />
       <div data-speed="0.2" className="absolute inset-x-0 top-[6%] h-[45%] opacity-70">
@@ -407,18 +357,16 @@ export default function Stack() {
       </div>
 
       <div className="shell relative">
-        <SectionHead title={<Headline h={c.h} />}>
-          {c.sub}
+        <SectionHead title={<>Every leading model. <span className="text-orange">One private front door.</span></>}>
+          Switch models mid-conversation, keep one memory across all of them, and run agents, all on the same private routes.
         </SectionHead>
 
         <ul className="mt-16 grid gap-4 md:grid-cols-2 lg:mt-20 lg:grid-cols-12">
-          {c.cards.map(({ visual, label, title, body }, i) => {
-            const Visual = VISUALS[visual];
-            return (
+          {cards.map(({ label, title, body, Visual, span }) => (
             <li
-              key={visual}
+              key={label}
               data-reveal
-              className={`glass glass-dark group flex flex-col overflow-hidden rounded-[28px] transition-transform duration-500 ease-[cubic-bezier(.16,1,.3,1)] hover:-translate-y-1 ${spans[i]}`}
+              className={`glass glass-dark group flex flex-col overflow-hidden rounded-[28px] transition-transform duration-500 ease-[cubic-bezier(.16,1,.3,1)] hover:-translate-y-1 ${span}`}
             >
               <div className="relative h-[264px] bg-[radial-gradient(120%_90%_at_50%_0%,rgba(255,110,40,.13),transparent_62%)]" aria-hidden="true">
                 <div className="dot-grid absolute inset-0 opacity-40 [mask-image:radial-gradient(circle_at_50%_40%,#000,transparent_75%)]" />
@@ -427,13 +375,12 @@ export default function Stack() {
                 </div>
               </div>
               <div className="flex flex-1 flex-col border-t border-white/[0.07] px-7 pb-7 pt-6 sm:px-8">
-                {label && <p className="mb-3 font-mono text-[11.5px] uppercase tracking-[0.1em] text-orange">{label}</p>}
-                <h3 className="text-[22px] font-medium leading-tight tracking-[-0.02em] text-fg sm:text-[24px]">{title}</h3>
+                <p className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-orange">{label}</p>
+                <h3 className="mt-3 text-[22px] font-medium leading-tight tracking-[-0.02em] text-fg sm:text-[24px]">{title}</h3>
                 <p className="mt-2.5 max-w-[520px] text-[15.5px] leading-relaxed text-soft">{body}</p>
               </div>
             </li>
-            );
-          })}
+          ))}
         </ul>
       </div>
     </section>

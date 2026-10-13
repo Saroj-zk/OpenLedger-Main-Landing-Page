@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
@@ -12,6 +12,25 @@ export const prefersReducedMotion = () =>
 // Lets CSS hold animated elements in their start state before the first paint (see index.css),
 // so nothing flashes visible and then jumps to hidden when its animation begins.
 if (typeof document !== 'undefined' && !prefersReducedMotion()) document.documentElement.classList.add('js-motion');
+
+/** Counts up on an interval while `ref` is on screen; stays at 0 for reduced motion. */
+export function useTicker(ref, ms) {
+  const [tick, setTick] = useState(0);
+  useEffect(() => {
+    if (prefersReducedMotion()) return undefined;
+    let id = 0;
+    const io = new IntersectionObserver(([entry]) => {
+      clearInterval(id);
+      if (entry.isIntersecting) id = setInterval(() => setTick((t) => t + 1), ms);
+    });
+    io.observe(ref.current);
+    return () => {
+      clearInterval(id);
+      io.disconnect();
+    };
+  }, [ref, ms]);
+  return tick;
+}
 
 let lenisInstance = null;
 export const getLenis = () => lenisInstance;
@@ -60,7 +79,7 @@ export function useSmoothScroll() {
  *   data-intro             – part of the hero's entrance on page load
  * Every h1/h2 with the .display class rises line by line from behind a mask.
  */
-export function useScrollScene(rootRef, version) {
+export function useScrollScene(rootRef) {
   useLayoutEffect(() => {
     const root = rootRef.current;
     if (!root) return undefined;
@@ -176,7 +195,7 @@ export function useScrollScene(rootRef, version) {
       window.removeEventListener('load', refresh);
       ctx.revert();
     };
-  }, [rootRef, version]);
+  }, [rootRef]);
 }
 
 /** Pointer-driven depth for elements marked data-depth, scoped to one container. */

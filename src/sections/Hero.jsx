@@ -1,15 +1,8 @@
 import WaveField from '@/components/WaveField';
-import { SectionSwitch } from '@/components/CopySwitcher';
 import { Arrow } from '@/components/ui';
 import { heyOpenLink } from '@/lib/links';
-import { Headline } from '@/content/copy';
-import { useCopy } from '@/content/context';
 
 export default function Hero() {
-  const { copy } = useCopy();
-  const c = copy.hero;
-  // Longer headline lines step down a size so each part stays on one line.
-  const long = Math.max(c.h.a.length, c.h.b.length) > 20;
   return (
     <section
       id="top"
@@ -17,7 +10,6 @@ export default function Hero() {
       data-parallax-root
       className="theme-dark relative flex min-h-[100svh] items-center overflow-hidden pb-24 pt-[140px] lg:min-h-[max(100svh,800px)]"
     >
-      <SectionSwitch section="hero" />
       {/* Warm light the waves sit in */}
       <div data-speed="0.3" className="ember-glow left-1/2 top-[58%] h-[360px] w-[80%] -translate-x-1/2 opacity-30" aria-hidden="true" />
 
@@ -34,22 +26,24 @@ export default function Hero() {
 
       <div className="shell relative z-10 w-full">
         <div data-hero-exit className="mx-auto max-w-[1180px] text-center">
-          <h1 className={`display leading-[1.05] ${long ? 'text-[26px] sm:text-[50px] lg:text-[76px]' : 'text-[32px] sm:text-[60px] lg:text-[92px]'}`}>
-            <Headline h={c.h} />
+          <h1 className="display text-[32px] leading-[1.05] sm:text-[60px] lg:text-[92px]">
+            AI without limits.
+            <br />
+            <span className="text-orange">Privacy built in.</span>
           </h1>
 
           <p className="lead mx-auto mt-8 max-w-[640px] !text-fg/75" data-intro>
-            {c.sub}
+            200+ AI models. Private access. Confidential compute.
           </p>
 
           <div className="mt-10 flex justify-center" data-intro>
             <a {...heyOpenLink} className="btn btn-primary btn-lg">
-              {c.cta} <Arrow />
+              Meet HeyOpen <Arrow />
             </a>
           </div>
 
           <ul data-intro className="mt-10 flex flex-col items-center justify-center gap-x-3 gap-y-1 font-mono text-[12px] uppercase tracking-[0.12em] text-bone/55 sm:flex-row" aria-label="Guarantees">
-            {c.line.map((t, i) => (
+            {['Private by architecture.', 'Open by choice.'].map((t, i) => (
               <li key={t} className="flex items-center gap-x-3">
                 {i > 0 && <span className="hidden h-1.5 w-1.5 rounded-[2px] bg-orange sm:block" aria-hidden="true" />}
                 {t}

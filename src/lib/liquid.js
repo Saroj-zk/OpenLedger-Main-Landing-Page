@@ -154,11 +154,11 @@ function mountFilter(el) {
   };
 }
 
-export function useLiquidGlass(rootRef, version) {
+export function useLiquidGlass(rootRef) {
   useEffect(() => {
     const root = rootRef.current;
     if (!root || !supportsRefraction()) return undefined;
     const cleanups = [...root.querySelectorAll('[data-liquid]')].map(mountFilter);
     return () => cleanups.forEach((fn) => fn());
-  }, [rootRef, version]);
+  }, [rootRef]);
 }

@@ -1,53 +1,48 @@
 import HeyOpenProduct from '@/components/HeyOpenProduct';
 import WaveField from '@/components/WaveField';
-import { SectionSwitch } from '@/components/CopySwitcher';
 import { Arrow, Logo } from '@/components/ui';
 import { heyOpenLink } from '@/lib/links';
-import { Headline } from '@/content/copy';
-import { useCopy } from '@/content/context';
 
 export default function HeyOpen() {
-  const { copy } = useCopy();
-  const c = copy.heyopen;
-  // A long heading line gets a wider copy column and one size down, so each part stays on one line.
-  const long = Math.max(c.h.a.length, c.h.b.length) > 20;
   return (
     <section id="heyopen" data-theme="light" data-parallax-root className="theme-light relative overflow-hidden py-28 lg:py-40">
-      <SectionSwitch section="heyopen" />
       <div data-speed="0.2" className="absolute inset-x-0 bottom-[-6%] h-[65%] opacity-70 [mask-image:linear-gradient(180deg,transparent,#000_40%)]">
         <WaveField tone="light" lines={30} y={0.5} tilt={0.16} amplitude={0.1} spread={0.34} speed={0.6} />
       </div>
       <div data-speed="0.3" className="ember-glow left-1/2 top-[60%] h-[480px] w-[70%] -translate-x-1/2 opacity-20" aria-hidden="true" />
 
       <div className="shell relative">
-        {/* Copy and the OPEN card share one row: the card stretches to the copy's exact height */}
-        <div className={`grid gap-10 lg:items-stretch ${long ? 'lg:grid-cols-[1.35fr_0.85fr] lg:gap-14' : 'lg:grid-cols-[1.1fr_1fr] lg:gap-20'}`}>
+        {/* Copy and the OPEN card share one row; the card sits at its own height, centred on the copy */}
+        <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-20">
           <div>
-            <h2 className={`display ${long ? 'text-[34px] sm:text-[46px] lg:text-[54px]' : 'text-[38px] sm:text-[52px] lg:text-[64px]'}`} data-reveal>
-              <Headline h={c.h} />
+            <h2 className="display text-[38px] sm:text-[52px] lg:text-[64px]" data-reveal>
+              All your AI.
+              <br />
+              <span className="text-orange">One private space.</span>
             </h2>
-            {[].concat(c.lead).map((t, i) => (
-              <p key={t} className={`lead max-w-[540px] ${i ? 'mt-4' : 'mt-6'}`} data-reveal>
-                {t}
-              </p>
-            ))}
+            <p className="lead mt-6 max-w-[540px]" data-reveal>
+              Frontier AI models. One Universal Memory. Private conversations. Uncensored access.
+            </p>
+            <p className="lead mt-4 max-w-[540px]" data-reveal>
+              Everything comes together in HeyOpen, powered by OpenLedger and built to keep your data under your control.
+            </p>
             <div className="mt-9" data-reveal>
               <a {...heyOpenLink} className="btn btn-primary btn-lg">
-                {c.cta} <Arrow />
+                Meet HeyOpen <Arrow />
               </a>
             </div>
           </div>
 
-          <div data-reveal data-liquid data-bezel="24" data-blur="10" className="glass flex flex-col justify-between gap-10 rounded-[28px] p-7 sm:p-9">
+          <div data-reveal data-liquid data-bezel="24" data-blur="10" className="glass flex flex-col gap-6 rounded-[28px] p-7 sm:p-8">
             <span className="grid h-12 w-12 place-items-center rounded-[14px] bg-[#0c0a09] shadow-[0_10px_30px_-10px_rgba(255,85,0,.6)]">
               <Logo className="h-7 w-7" />
             </span>
             <div>
               <h3 className="display text-[30px] sm:text-[38px]">
-                <Headline h={c.open.h} />
+                Powered by <span className="text-orange">OPEN.</span>
               </h3>
               <p className="mt-3 max-w-[460px] text-[16px] leading-relaxed text-soft">
-                {c.open.body}
+                OPEN connects private model access, Universal Memory, agent capabilities, and x402-powered transactions.
               </p>
             </div>
           </div>
