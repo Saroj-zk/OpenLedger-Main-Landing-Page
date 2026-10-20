@@ -6,8 +6,8 @@ const footerLinks = [
   ['Privacy', '#privacy'],
   ['Platform', '#stack'],
   ['HeyOpen', '#heyopen'],
-  ['Ecosystem', '#ecosystem'],
   ['Use cases', '#use-cases'],
+  ['Ecosystem', '#ecosystem'],
   ['Investors', '#backed'],
 ];
 

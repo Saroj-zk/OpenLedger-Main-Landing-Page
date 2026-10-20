@@ -33,18 +33,27 @@ export default function HeyOpen() {
             </div>
           </div>
 
-          <div data-reveal data-liquid data-bezel="24" data-blur="10" className="glass flex flex-col gap-6 rounded-[28px] p-7 sm:p-8">
-            <span className="grid h-12 w-12 place-items-center rounded-[14px] bg-[#0c0a09] shadow-[0_10px_30px_-10px_rgba(255,85,0,.6)]">
-              <Logo className="h-7 w-7" />
-            </span>
-            <div>
-              <h3 className="display text-[30px] sm:text-[38px]">
-                Powered by <span className="text-orange">OPEN.</span>
+          <div data-reveal data-liquid data-bezel="24" data-blur="10" className="glass flex flex-col gap-5 rounded-[28px] p-7 sm:p-8">
+            {/* Header: token icon, title, status */}
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[14px] bg-[#0c0a09] shadow-[0_10px_30px_-10px_rgba(255,85,0,.6)]">
+                <Logo className="h-7 w-7" />
+              </span>
+              <h3 className="display flex-none whitespace-nowrap text-[24px] sm:text-[28px]">
+                Powered by <span className="text-orange">$OPEN</span>
               </h3>
-              <p className="mt-3 max-w-[460px] text-[16px] leading-relaxed text-soft">
-                OPEN connects private model access, Universal Memory, agent capabilities, and x402-powered transactions.
-              </p>
+              {/* OPEN isn't live yet */}
+              <span className="inline-flex shrink-0 items-center gap-2 rounded-full bg-gradient-to-b sm:ml-auto from-white/80 to-orange/[0.08] px-3.5 py-2 font-mono text-[10.5px] font-medium uppercase tracking-[0.16em] text-[#c2410c] shadow-[inset_0_1px_0_rgba(255,255,255,.95),0_8px_20px_-10px_rgba(255,85,0,.45)] ring-1 ring-orange/25 backdrop-blur-md">
+                <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+                  <span className="absolute inset-0 animate-ping rounded-full bg-orange/60" />
+                  <span className="relative h-1.5 w-1.5 rounded-full bg-orange" />
+                </span>
+                Coming soon
+              </span>
             </div>
+            <p className="max-w-[480px] text-[16px] leading-relaxed text-soft">
+              $OPEN connects private model access, Universal Memory, agent capabilities, and x402-powered transactions.
+            </p>
           </div>
         </div>
 

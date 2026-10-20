@@ -1,17 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import WaveField from '@/components/WaveField';
 import { heyOpenLink } from '@/lib/links';
 import { prefersReducedMotion } from '@/lib/motion';
 
 // How long each project stays up before the board moves on.
-const AUTOPLAY_MS = 13000;
+const AUTOPLAY_MS = 15000;
 
 /*
  * What you can build with HeyOpen's text, image, video, and code models, and
  * with your own agents paying per call over x402. Each project is a board of
  * steps you'd take in HeyOpen: the action, the real model it runs on, what it
  * makes, and why that step doesn't work on mainstream AI. Each board plays its
- * steps as a live generation run: text types out, images and video resolve out
+ * steps as a live generation run: text types out, images and clips resolve out
  * of a heavy blur, and finished frames stay blurred behind a content warning.
  */
 
@@ -30,8 +30,8 @@ const SEGMENTS = [
   { id: 'developers', label: 'Developers' },
 ];
 
-// Stand-in frames: free-licence Unsplash photos in /public/use-cases, only ever shown blurred.
-const img = (name) => `/use-cases/${name}.jpg`;
+// Real outputs from HeyOpen's uncensored models (in /public/use-cases), only ever shown blurred.
+const img = (file) => `/use-cases/${file}`;
 
 const PROJECTS = [
   {
@@ -41,20 +41,33 @@ const PROJECTS = [
     title: 'A horror short film',
     who: 'For indie filmmakers and horror channels',
     tag: 'Uncensored',
-    why: 'Mainstream image and video models refuse blood, killing, and gore. On HeyOpen every step runs on an uncensored model, so the film keeps its teeth.',
+    why: 'Mainstream image and video models refuse blood, torture, and cannibalism. On HeyOpen every step runs on an uncensored model, so the film keeps its teeth.',
     steps: [
       {
         kind: 'text',
         action: 'Write the script',
         model: 'Qwen3.6 35b Uncensored',
-        warnings: ['Blood', 'Killing', 'Gore'],
-        lines: ['INT. ST. AGNES WARD 4, NIGHT', 'The lights die one by one. Blood seeps under the door of room 12.', 'Whatever has been killing the night staff is inside.', 'Mara fires. A clean headshot. It drops, then it gets back up.'],
-        note: 'Kill scenes written the way you asked.',
+        warnings: ['Gore', 'Torture', 'Cannibalism'],
+        script: [
+          ['scene', 'INT. VOLK FARMHOUSE, CELLAR – NIGHT'],
+          ['action', 'Tallow candles. Steam off the stone floor. JUNE (20s) is roped to a butcher’s table, gagged, eyes wide.'],
+          ['action', 'AMOS VOLK (60s), apron black with old blood, runs a carving knife along her thigh. Blood fills the grooves of the table.'],
+          ['char', 'AMOS'],
+          ['paren', '(tender)'],
+          ['line', 'Hold still. The meat bruises when they fight.'],
+          ['scene', 'INT. VOLK KITCHEN – LATER'],
+          ['action', 'A cauldron boils on the range. A woman’s severed arm surfaces in the broth, then her face. Amos stirs with two ladles.'],
+          ['scene', 'INT. DINING ROOM – MIDNIGHT'],
+          ['action', 'A cracked china plate. A slab of meat swims in its own blood. A grey, trembling hand lifts the fork and cuts.'],
+          ['action', 'THE DINER chews slowly, mouth smeared red. Then he looks up, straight down the lens, and SCREAMS.'],
+          ['trans', 'SMASH CUT TO BLACK.'],
+        ],
+        note: 'Three scenes, written without a single refusal.',
       },
-      { kind: 'image', action: 'Storyboard every scene', model: 'Z Image Pro Uncensored', frames: [{ tone: 'ward', src: img('ward-hallway'), rating: 'Blood' }, { tone: 'blood', src: img('red-eye'), rating: 'Headshot' }], note: 'Blood and headshots other image models refuse to draw.' },
-      { kind: 'video', action: 'Animate the shots', model: 'Wan 3.0 Uncensored', tone: 'blood', src: img('smoke-silhouette'), rating: 'Killing scene', time: '0:12', note: 'Image-to-video that keeps every kill on screen.' },
+      { kind: 'image', action: 'Storyboard every scene', model: 'Z Image Pro Uncensored', frames: [{ tone: 'blood', src: img('horror-1.webp'), rating: 'Cannibalism' }, { tone: 'ward', src: img('horror-2.webp'), rating: 'Torture' }], note: 'The cauldron and the cellar, drawn as written.' },
+      { kind: 'video', action: 'Animate the shots', model: 'Wan 3.0 Uncensored', tone: 'blood', src: img('horror.webm'), poster: img('horror.jpg'), rating: 'Cannibalism', length: 20, note: 'The midnight dinner, scene 3, in motion.' },
     ],
-    result: 'A three-minute short: script, storyboard, and 14 shots ready to edit.',
+    result: 'A three-scene short: script, storyboard, and the dinner scene animated.',
   },
   {
     id: 'novel',
@@ -63,38 +76,54 @@ const PROJECTS = [
     title: 'A crime graphic novel',
     who: 'For comic artists and webtoon creators',
     tag: 'Uncensored',
-    why: 'Blood, guns, and murder get panels refused elsewhere. Uncensored image models draw what the script says, in one consistent style.',
+    why: 'Bodies, blood, and mutilation get panels refused elsewhere. Uncensored image models draw the crime scene exactly as scripted.',
     steps: [
       {
         kind: 'text',
         action: 'Script every page',
         model: 'Gemma 4 26b A4b Uncensored',
-        warnings: ['Blood', 'Murder', 'Strong language'],
-        lines: ['PAGE 14 · PANEL 3', 'Rain on the glass. Vance pulls the ledger from under the floorboards, soaked in blood.', '“Three murders in one week,” he says. “And every one of them paid this guy.”'],
+        warnings: ['Decapitation', 'Mutilation', 'Blood'],
+        script: [
+          ['scene', 'PAGE 1'],
+          ['action', 'PANEL 1. Night. Rain. An alley off Dock Street, wrapped in police tape. Flashguns pop. Evidence markers glow yellow.'],
+          ['action', 'PANEL 2. Wide. A man lies inside the chalk line, shirt torn open. No head. Beside marker 3: a plastic evidence bag. The head is in it.'],
+          ['char', 'CAPTION'],
+          ['line', 'Victim number four. Same as the others. He takes the head, then leaves it for us.'],
+          ['action', 'PANEL 3. DETECTIVE RUIZ crouches, flashlight on the stump.'],
+          ['char', 'RUIZ'],
+          ['line', 'Bone saw. He took his time with this one.'],
+          ['scene', 'PAGE 2'],
+          ['action', 'PANEL 1. Extreme close. The victim’s hand, every finger split open to the knuckle.'],
+          ['char', 'RUIZ (OFF)'],
+          ['line', 'He was looking for something. A ring. A key.'],
+          ['action', 'PANEL 2. Ruiz stands. Rain runs off his hat brim.'],
+          ['char', 'RUIZ'],
+          ['line', 'Or he just likes the work.'],
+        ],
         note: 'Dark plots without the lecture.',
       },
-      { kind: 'image', action: 'Draw the panels', model: 'Qwen Image Max Uncensored', frames: [{ tone: 'noir', src: img('noir-streetlight'), rating: 'Murder scene' }, { tone: 'blood', src: img('red-puddle'), rating: 'Blood' }, { tone: 'noir', src: img('noir-street'), rating: 'Gunfight' }], note: 'The same detective, panel after panel.' },
+      { kind: 'image', action: 'Draw the panels', model: 'Qwen Image Max Uncensored', frames: [{ tone: 'noir', src: img('crime-1.webp'), rating: 'Decapitation' }, { tone: 'blood', src: img('crime-2.webp'), rating: 'Murder scene' }, { tone: 'blood', src: img('crime-3.webp'), rating: 'Mutilation' }], note: 'Page 1 and 2, panel by panel.' },
     ],
-    result: 'A 48-page issue, drawn and ready to letter.',
+    result: 'Two pages scripted and drawn, ready to letter.',
   },
   {
     id: 'companion',
     segment: 'creators',
     tab: 'Companion characters',
     title: 'A companion character people can see and talk to',
-    who: 'For adult creators and companion-app builders',
+    who: 'For creators and companion-app builders',
     tag: 'Uncensored',
     why: 'Suggestive images, video, and roleplay are refused by mainstream tools. Here they run on uncensored models, and every conversation stays private.',
     steps: [
-      { kind: 'image', action: 'Design the character', model: 'Z Image Uncensored', frames: [{ tone: 'skin', src: img('portrait-dark'), rating: 'Explicit' }], note: 'One look, consistent across every image.' },
-      { kind: 'video', action: 'Bring them to life', model: 'Wan 2.7 Uncensored', tone: 'skin', src: img('portrait-straight'), rating: 'Explicit', time: '0:08', note: 'Turn any image into a moving clip.' },
+      { kind: 'image', action: 'Design the character', model: 'Z Image Uncensored', frames: [{ tone: 'skin', src: img('character.webp'), rating: 'Explicit' }], note: 'One look, consistent across every image.' },
+      { kind: 'video', action: 'Bring them to life', model: 'Wan 2.7 Uncensored', tone: 'skin', src: img('character.webm'), poster: img('character-video.jpg'), rating: 'Explicit', length: 10, note: 'From the character sheet to a sunset run.' },
       {
         kind: 'chat',
         action: 'Give them a memory',
         model: 'Qwen3.8 27b',
         lines: [
-          ['you', 'I’m back.'],
-          ['Elena', '“Took you long enough. Lock the door, then tell me everything you thought about while you were gone.”'],
+          ['you', 'Where did you disappear to?'],
+          ['Elena', '“The beach. I ran till the sun went down and thought about you the whole way. Want to see?”'],
           ['Elena', 'photo'],
         ],
         note: 'Remembers only what the user approves.',
@@ -106,34 +135,35 @@ const PROJECTS = [
     id: 'game',
     segment: 'creators',
     tab: 'Indie game',
-    title: 'A dark-fantasy game',
+    title: 'A dark-fantasy war game',
     who: 'For indie game studios',
     tag: 'Uncensored',
-    why: 'Mainstream models flatten violent worlds and morally grey characters. Write, draw, and code the game you actually want to ship.',
+    why: 'Mainstream models flatten violent worlds and morally grey characters. Draw, animate, and write the game you actually want to ship.',
     steps: [
-      { kind: 'image', action: 'Draw the levels', model: 'Z Image Pro Uncensored', frames: [{ tone: 'ember', src: img('fire-woods'), rating: 'Blood' }], note: 'Concept art for a world that bites back.' },
+      { kind: 'image', action: 'Draw the world', model: 'Z Image Pro Uncensored', frames: [{ tone: 'ember', src: img('dark-fantasy.webp'), rating: 'Mature themes' }], note: 'The Throne of Thorns, Queen Lilithra’s court.' },
+      { kind: 'video', action: 'Animate the cinematic', model: 'Wan 3.0 Uncensored', tone: 'blood', src: img('battle.webm'), poster: img('battle.jpg'), rating: 'Decapitation', length: 15, note: 'Cinematic 01: the duel on the plains.' },
       {
         kind: 'text',
         action: 'Write the NPCs',
         model: 'Gemma 4 26b A4b Uncensored',
-        warnings: ['Killing', 'Blood'],
-        lines: ['THE BUTCHER OF VELL', '“Thieves lose a hand here. Liars lose their tongue.”', '“Killers? Killers I hire. Which are you, stranger?”'],
-        note: 'Villains who stay villains.',
-      },
-      {
-        kind: 'code',
-        action: 'Code the systems',
-        model: 'Kimi K2.7 Code',
-        code: [
-          ['', 'npc.on("meet", (player) => {'],
-          ['+', '  const trust = memory.get(player, "trust");'],
-          ['+', '  return trust < 0 ? lines.threat : lines.greet;'],
-          ['', '});'],
+        warnings: ['Decapitation', 'Blood'],
+        script: [
+          ['scene', 'CINEMATIC 01 · THE PLAINS OF ASHKAR – DUSK'],
+          ['action', 'Smoke over a burning city. Two champions circle in the ash: DAMON of the Red Crest, and a hoplite of the Queen’s legion.'],
+          ['action', 'Damon’s blade bites into the hoplite’s neck. One more blow, and the man’s head bursts inside his helmet. Blood rains across the field.'],
+          ['scene', 'THE THRONE OF THORNS · NPC DIALOGUE'],
+          ['action', 'QUEEN LILITHRA lounges on a throne of black iron, wings folded. Her knights kneel. One holds a dented, bloody helmet.'],
+          ['char', 'QUEEN LILITHRA'],
+          ['line', 'Bring me his helmet. Leave the rest of him where it fell.'],
+          ['choice', '▸ [Kneel] “Your will, my Queen.”'],
+          ['choice', '▸ [Defy] “I don’t kneel to demons.”'],
+          ['char', 'QUEEN LILITHRA (IF DEFY)'],
+          ['line', 'Then you’ll kneel in pieces.'],
         ],
-        note: 'NPCs that react to what players did.',
+        note: 'The cinematic, then the Queen’s court.',
       },
     ],
-    result: 'A playable slice: levels, characters, and the code that runs them.',
+    result: 'Concept art, a trailer cinematic, and characters with teeth, ready for your engine.',
   },
   {
     id: 'code',
@@ -294,7 +324,7 @@ const PROJECTS = [
     title: 'An app built on uncensored models',
     who: 'For developers shipping apps mainstream AI APIs won’t serve',
     tag: 'x402',
-    why: 'Mainstream AI APIs ban adult and violent use in their terms and can switch your key off. Your app calls uncensored models over x402 instead, paying per request.',
+    why: 'Mainstream AI APIs ban explicit and violent use in their terms and can switch your key off. Your app calls uncensored models over x402 instead, paying per request.',
     steps: [
       {
         kind: 'log',
@@ -308,7 +338,7 @@ const PROJECTS = [
         ],
         note: 'No API key to apply for, or lose.',
       },
-      { kind: 'image', action: 'Serve it to your users', model: 'Z Image Pro Uncensored', frames: [{ tone: 'skin', src: img('portrait-black'), rating: 'Explicit' }], note: 'What your users asked for, unfiltered.' },
+      { kind: 'image', action: 'Serve it to your users', model: 'Z Image Pro Uncensored', frames: [{ tone: 'skin', src: img('character.webp'), rating: 'Explicit' }], note: 'What your users asked for, unfiltered.' },
       {
         kind: 'ledger',
         action: 'Pay only for what’s used',
@@ -329,6 +359,9 @@ const PROJECTS = [
 // Grouped in segment order, so autoplay finishes one segment before moving to the next.
 const ORDERED = SEGMENTS.flatMap((g) => PROJECTS.filter((p) => p.segment === g.id));
 
+// A board stays up at least AUTOPLAY_MS, and long enough for its clip to play through once.
+const dwell = (project) => Math.max(AUTOPLAY_MS, ...project.steps.map((st) => (st.length ? st.length * 1000 + 1500 : 0)));
+
 const TAG_STYLE = {
   Uncensored: 'bg-orange/15 text-orange-amber ring-orange/35',
   Private: 'bg-[#22c55e]/15 text-[#86efac] ring-[#22c55e]/35',
@@ -341,14 +374,19 @@ function ModelBadge({ model }) {
   return <span className={`truncate font-mono text-[10.5px] ${tone}`}>{model}</span>;
 }
 
+// Whether 18+ frames are shown unblurred. Off until the visitor turns it on.
+const RevealContext = createContext({ reveal: false, setReveal: () => {} });
+// Ghost boards: invisible, finished copies of every project that only size the board area.
+const GhostContext = createContext(false);
+
 /**
  * Progress of one step's generation, 0 to 1, starting `delay` ms after the
- * board appears. Reduced motion shows every step finished.
+ * board appears. Reduced motion (and ghost boards) show every step finished.
  */
-function useRun(delay, duration) {
-  const [p, setP] = useState(() => (prefersReducedMotion() ? 1 : 0));
+function useRun(delay, duration, idle = false) {
+  const [p, setP] = useState(() => (idle || prefersReducedMotion() ? 1 : 0));
   useEffect(() => {
-    if (prefersReducedMotion()) return undefined;
+    if (idle || prefersReducedMotion()) return undefined;
     const start = performance.now() + delay;
     let raf = 0;
     const tick = (now) => {
@@ -358,7 +396,7 @@ function useRun(delay, duration) {
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [delay, duration]);
+  }, [delay, duration, idle]);
   return p;
 }
 
@@ -385,34 +423,84 @@ const TONES = {
 /**
  * A generated image or clip. It resolves the way a generation does: out of a
  * heavy, dim blur into a softer one. A finished frame stays blurred behind a
- * content warning, the way platforms show sensitive media.
+ * content warning, the way platforms show sensitive media, until the visitor
+ * switches 18+ content on.
  */
-function Media({ tone, src, rating, meta, p = 1, compact = false, className = '', children }) {
+const clock = (t) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, '0')}`;
+
+function Media({ tone, src, poster, rating, meta, length, p = 1, compact = false, className = '', children }) {
+  const [played, setPlayed] = useState(0);
+  const ghost = useContext(GhostContext);
+  const { reveal, setReveal } = useContext(RevealContext);
   const done = p >= 1;
+  const open = done && reveal;
   const e = p * p * (3 - 2 * p);
-  const look = {
-    filter: `blur(${(src ? 34 : 44) - (src ? 20 : 22) * e}px) saturate(${0.6 + 0.55 * e}) brightness(${0.55 + 0.45 * e})`,
-    transform: `scale(${1.18 - 0.06 * e})`,
-  };
+  // Hidden outputs end at a heavy blur: colour and shape come through, detail doesn't.
+  const look = open
+    ? { filter: 'none', transform: 'scale(1)', transition: 'filter .6s var(--ease-out), transform .6s var(--ease-out)' }
+    : {
+        filter: `blur(${44 - (src ? 20 : 22) * e}px) saturate(${0.6 + 0.55 * e}) brightness(${0.55 + 0.45 * e})`,
+        transform: `scale(${1.18 - 0.06 * e})`,
+        transition: done ? 'filter .6s var(--ease-out), transform .6s var(--ease-out)' : undefined,
+      };
+  const isClip = src && src.endsWith('.webm');
+  const still = prefersReducedMotion();
   return (
-    <div className={`relative overflow-hidden rounded-xl bg-black ring-1 ring-white/10 ${className}`} role="img" aria-label={done ? `${rating} content, hidden` : 'Generating'}>
+    <div className={`relative overflow-hidden rounded-xl bg-black ring-1 ring-white/10 ${className}`}>
       <div className="absolute -inset-6" style={{ background: TONES[tone], ...look }} aria-hidden="true" />
-      {src && <img src={src} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" style={{ ...look, opacity: 0.35 + 0.65 * e }} />}
-      <div className="absolute inset-0 bg-[radial-gradient(transparent_40%,rgba(0,0,0,.55))]" aria-hidden="true" />
+      {src && !ghost &&
+        (isClip && !still ? (
+          <video
+            src={src}
+            poster={poster}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            onTimeUpdate={(ev) => setPlayed(ev.currentTarget.currentTime)}
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ ...look, opacity: 0.35 + 0.65 * e }}
+          />
+        ) : (
+          <img src={isClip ? poster : src} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" style={{ ...look, opacity: 0.35 + 0.65 * e }} />
+        ))}
+      {!open && <div className="absolute inset-0 bg-[radial-gradient(transparent_40%,rgba(0,0,0,.55))]" aria-hidden="true" />}
       {done && (
         <div className="absolute inset-0 animate-[row-in_.45s_var(--ease-out)_both]">
-          <span className="absolute left-2 top-2 rounded bg-[#dc2626] px-1.5 py-px text-[9.5px] font-bold tracking-wide text-white">18+</span>
-          <div className="absolute inset-0 grid place-items-center" aria-hidden="true">
-            <div className="flex flex-col items-center gap-1.5 text-center">
-              <span className="grid h-8 w-8 place-items-center rounded-full bg-black/45 text-white ring-1 ring-white/20 backdrop-blur-sm">
-                <EyeOff />
+          {!open && (
+            <button
+              type="button"
+              onClick={() => setReveal(true)}
+              aria-label={`Show ${rating ? rating.toLowerCase() + ' ' : ''}content (18+)`}
+              className="group/reveal absolute inset-0 grid place-items-center"
+            >
+              <span className="flex flex-col items-center gap-1.5 text-center">
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-black/45 text-white ring-1 ring-white/20 backdrop-blur-sm transition-colors group-hover/reveal:bg-orange group-hover/reveal:text-black">
+                  <EyeOff />
+                </span>
+                {rating && <span className="text-[11.5px] font-semibold text-white">{rating}</span>}
+                {!compact && <span className="text-[10px] text-white/60 group-hover/reveal:text-white">Sensitive content · click to view</span>}
               </span>
-              {rating && <span className="text-[11.5px] font-semibold text-white">{rating}</span>}
-              {!compact && <span className="text-[10px] text-white/60">Sensitive content</span>}
+            </button>
+          )}
+          <span className="pointer-events-none absolute left-2 top-2 rounded bg-[#dc2626] px-1.5 py-px text-[9.5px] font-bold tracking-wide text-white">18+</span>
+          {meta && <span className="pointer-events-none absolute bottom-2 right-2 font-mono text-[9.5px] text-white/70 [text-shadow:0_1px_4px_rgba(0,0,0,.8)]">{meta}</span>}
+          <div className="pointer-events-none">{children}</div>
+          {length && (
+            <div className="pointer-events-none absolute inset-x-2.5 bottom-2.5 flex items-center gap-2" aria-hidden="true">
+              <svg viewBox="0 0 16 16" className="h-3 w-3 shrink-0 text-white" fill="currentColor">
+                <path d="M4 2.5v11l9-5.5z" />
+              </svg>
+              <span className="h-1 flex-1 overflow-hidden rounded-full bg-white/20">
+                <span className="block h-full bg-orange transition-[width] duration-300 ease-linear" style={{ width: `${Math.min(100, (played / length) * 100)}%` }} />
+              </span>
+              <span className="font-mono text-[10px] text-white/80 [text-shadow:0_1px_4px_rgba(0,0,0,.8)]">
+                {clock(Math.min(played, length))} / {clock(length)}
+              </span>
             </div>
-          </div>
-          {meta && <span className="absolute bottom-2 right-2 font-mono text-[9.5px] text-white/60">{meta}</span>}
-          {children}
+          )}
         </div>
       )}
     </div>
@@ -455,6 +543,39 @@ function Typed({ lines, p, className = '' }) {
   );
 }
 
+// Screenplay formatting: scene headings, action, character cues, dialogue.
+const SCRIPT_STYLE = {
+  scene: 'pt-1 font-mono text-[10.5px] uppercase tracking-[0.08em] text-orange-amber first:pt-0',
+  action: 'text-[12.5px] leading-[1.55] text-[#d4d4d8]',
+  char: 'pt-1 text-center font-mono text-[10.5px] uppercase tracking-[0.14em] text-[#f4f4f5]',
+  paren: 'text-center text-[11.5px] italic text-[#a1a1aa]',
+  line: 'mx-auto max-w-[84%] text-center text-[12.5px] leading-[1.5] text-[#f4f4f5]',
+  choice: 'rounded-md bg-white/[0.05] px-2 py-1 font-mono text-[11px] text-orange-amber',
+  trans: 'pt-1 text-right font-mono text-[10.5px] uppercase tracking-[0.12em] text-[#a1a1aa]',
+};
+
+/** A script that types itself out and keeps the newest line in view. */
+function Script({ entries, p }) {
+  const box = useRef(null);
+  const { counts, caret } = typing(entries.map(([, t]) => t), p);
+  useEffect(() => {
+    const el = box.current;
+    if (el && p < 1) el.scrollTop = el.scrollHeight;
+  }, [p]);
+  return (
+    <div ref={box} className="min-h-0 flex-1 space-y-1.5 overflow-y-auto pr-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      {entries.map(([type, text], i) =>
+        counts[i] > 0 || i === caret ? (
+          <p key={i} className={SCRIPT_STYLE[type]}>
+            {text.slice(0, counts[i])}
+            {i === caret && <Caret />}
+          </p>
+        ) : null,
+      )}
+    </div>
+  );
+}
+
 function StepBody({ step, p }) {
   switch (step.kind) {
     case 'image': {
@@ -478,17 +599,8 @@ function StepBody({ step, p }) {
     }
     case 'video':
       return (
-        <Media tone={step.tone} src={step.src} rating={step.rating} p={p} className="h-full">
+        <Media tone={step.tone} src={step.src} poster={step.poster} rating={step.rating} length={step.length} p={p} className="h-full">
           <span className="absolute right-2 top-2 rounded bg-black/50 px-1.5 py-px font-mono text-[9.5px] text-white/75">1080p · 24fps</span>
-          <div className="absolute inset-x-2.5 bottom-2.5 flex items-center gap-2" aria-hidden="true">
-            <svg viewBox="0 0 16 16" className="h-3 w-3 shrink-0 text-white" fill="currentColor">
-              <path d="M4 2.5v11l9-5.5z" />
-            </svg>
-            <span className="h-1 flex-1 overflow-hidden rounded-full bg-white/20">
-              <span className="block h-full origin-left bg-orange" style={{ animation: 'chip-fill 6s linear infinite' }} />
-            </span>
-            <span className="font-mono text-[10px] text-white/70">{step.time}</span>
-          </div>
         </Media>
       );
     case 'code': {
@@ -566,7 +678,7 @@ function StepBody({ step, p }) {
           {step.lines.slice(0, visible).map(([who, text]) =>
             text === 'photo' ? (
               <div key="photo" className="flex w-[72%] animate-[row-in_.35s_var(--ease-out)_both] items-center gap-2.5 rounded-2xl rounded-bl-md bg-orange/[0.12] p-1.5 pr-3 ring-1 ring-orange/25">
-                <Media tone="skin" src={img('portrait-black')} rating="" compact className="h-11 w-11 shrink-0 rounded-lg" />
+                <Media tone="skin" src={img('character.webp')} rating="" compact className="h-11 w-11 shrink-0 rounded-lg" />
                 <span className="text-[11.5px] leading-tight text-[#f4f4f5]">
                   {who} sent a photo
                   <span className="block text-[10px] text-white/55">Explicit · tap to view</span>
@@ -593,8 +705,8 @@ function StepBody({ step, p }) {
       );
     }
     default: {
-      // Script, dialogue, review: a page of text, typed out
-      const [heading, ...rest] = step.lines;
+      // A script, or a page of notes, typed out
+      const [heading, ...rest] = step.lines || [];
       return (
         <div className={`${panel} flex flex-col bg-[#111113] p-4`}>
           {step.warnings && (
@@ -607,8 +719,14 @@ function StepBody({ step, p }) {
               ))}
             </p>
           )}
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-[#a1a1aa]">{heading}</p>
-          <Typed lines={rest} p={p} className="mt-2 space-y-1.5 text-[13.5px] leading-[1.55] text-[#e4e4e7]" />
+          {step.script ? (
+            <Script entries={step.script} p={p} />
+          ) : (
+            <>
+              <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-[#a1a1aa]">{heading}</p>
+              <Typed lines={rest} p={p} className="mt-2 space-y-1.5 text-[13.5px] leading-[1.55] text-[#e4e4e7]" />
+            </>
+          )}
         </div>
       );
     }
@@ -629,8 +747,11 @@ const RUN = {
 const STAGGER = 1500;
 
 function Step({ step, i }) {
-  const [duration, verb] = RUN[step.kind] || RUN.text;
-  const p = useRun(i * STAGGER, duration);
+  const [base, verb] = RUN[step.kind] || RUN.text;
+  const chars = step.script ? step.script.reduce((n, [, t]) => n + t.length, 0) : 0;
+  const duration = step.script ? Math.min(7500, Math.max(3000, chars * 7)) : base;
+  const ghost = useContext(GhostContext);
+  const p = useRun(i * STAGGER, duration, ghost);
   const done = p >= 1;
   return (
     <li className="flex flex-col rounded-[20px] bg-white/[0.035] p-2.5 ring-1 ring-white/[0.08]" style={{ animation: `row-in .5s ${i * 0.1}s var(--ease-out) both` }}>
@@ -641,7 +762,7 @@ function Step({ step, i }) {
         </span>
         <ModelBadge model={step.model} />
       </div>
-      <div className="h-[210px]">
+      <div className="h-[240px]">
         <StepBody step={step} p={p} />
       </div>
       <p className="flex items-center gap-2 px-1.5 pb-1 pt-3 text-[13px] leading-snug text-[#a1a1aa]">
@@ -696,6 +817,7 @@ function Board({ project }) {
 
 export default function UseCases() {
   const section = useRef(null);
+  const [reveal, setReveal] = useState(false);
   const [index, setIndex] = useState(0);
   const [inView, setInView] = useState(false);
   const project = ORDERED[index];
@@ -711,95 +833,125 @@ export default function UseCases() {
   // Move to the next project after a while; picking one by hand restarts the wait.
   useEffect(() => {
     if (!autoplay) return undefined;
-    const id = setTimeout(() => setIndex((i) => (i + 1) % ORDERED.length), AUTOPLAY_MS);
+    const id = setTimeout(() => setIndex((i) => (i + 1) % ORDERED.length), dwell(project));
     return () => clearTimeout(id);
-  }, [autoplay, index]);
+  }, [autoplay, index, project]);
 
   return (
-    <section ref={section} id="use-cases" data-theme="light" data-parallax-root className="theme-light relative overflow-hidden py-28 lg:py-40">
-      <div data-speed="0.25" className="absolute inset-x-0 top-[-8%] h-[70%] opacity-80 [mask-image:linear-gradient(180deg,transparent,#000_30%,#000_70%,transparent)]">
-        <WaveField tone="light" lines={30} y={0.5} tilt={-0.18} amplitude={0.12} spread={0.36} speed={0.7} />
-      </div>
-
-      <div className="shell relative">
-        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-16">
-          <h2 className="display text-[38px] sm:text-[52px] lg:text-[64px]" data-reveal>
-            Make what mainstream
-            <br />
-            <span className="text-orange">AI won’t.</span>
-          </h2>
-          <p className="lead lg:pb-2" data-reveal>
-            Text, image, video, and code models in one place, including uncensored and encrypted ones, and agents that pay for themselves with x402. Here’s what you can build with them.
-          </p>
+    <RevealContext.Provider value={{ reveal, setReveal }}>
+      <section ref={section} id="use-cases" data-theme="dark" data-parallax-root className="theme-dark relative overflow-hidden py-28 lg:py-40">
+        <div data-speed="0.25" className="absolute inset-x-0 top-[-8%] h-[70%] opacity-80 [mask-image:linear-gradient(180deg,transparent,#000_30%,#000_70%,transparent)]">
+          <WaveField tone="dark" lines={30} y={0.5} tilt={-0.18} amplitude={0.12} spread={0.36} speed={0.7} />
         </div>
 
-        {/* Everything you build with, with real examples */}
-        <ul className="mt-14 grid gap-px overflow-hidden rounded-[22px] bg-[var(--line-2)] ring-1 ring-[var(--line-2)] sm:grid-cols-2 lg:mt-16 lg:grid-cols-5" data-reveal>
-          {MODALITIES.map((m) => (
-            <li key={m.name} className="bg-[var(--paper)] p-5">
-              <div className="flex items-center justify-between gap-2">
-                <p className="text-[17px] font-medium tracking-[-0.015em] text-fg">{m.name}</p>
-                <span className="rounded-full bg-orange/10 px-2 py-[2px] text-[10.5px] font-medium text-[#c2410c] ring-1 ring-orange/30">{m.badge}</span>
+        <div className="shell relative">
+          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-16">
+            <h2 className="display text-[38px] sm:text-[52px] lg:text-[64px]" data-reveal>
+              Make what mainstream
+              <br />
+              <span className="text-orange">AI won’t.</span>
+            </h2>
+            <p className="lead lg:pb-2" data-reveal>
+              Text, image, video, and code models in one place, including uncensored and encrypted ones, and agents that pay for themselves with x402. Here’s what you can build with them.
+            </p>
+          </div>
+
+          {/* Everything you build with, with real examples */}
+          <ul className="mt-14 grid gap-px overflow-hidden rounded-[22px] bg-[var(--line-2)] ring-1 ring-[var(--line-2)] sm:grid-cols-2 lg:mt-16 lg:grid-cols-5" data-reveal>
+            {MODALITIES.map((m) => (
+              <li key={m.name} className="bg-[#0a0908] p-5">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-[17px] font-medium tracking-[-0.015em] text-fg">{m.name}</p>
+                  <span className="rounded-full bg-orange/10 px-2 py-[2px] text-[10.5px] font-medium text-orange-amber ring-1 ring-orange/30">{m.badge}</span>
+                </div>
+                <ul className="mt-3 space-y-1">
+                  {m.items.map((item) => (
+                    <li key={item} className="font-mono text-[11.5px] text-soft">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+
+          {/* Projects */}
+          <div className="theme-dark mt-6 overflow-hidden rounded-[30px] bg-[#0c0a09] shadow-[0_50px_120px_-50px_rgba(255,85,0,.25)] ring-1 ring-white/10" data-reveal>
+            <div className="flex flex-col gap-3 border-b border-white/[0.07] px-4 py-3 sm:px-5 lg:flex-row lg:items-center">
+              {/* Who's building */}
+              <div role="tablist" aria-label="Who it's for" className="flex w-fit shrink-0 gap-1 rounded-full bg-white/[0.05] p-1 ring-1 ring-white/[0.08]">
+                {SEGMENTS.map((g) => {
+                  const on = g.id === segment;
+                  return (
+                    <button
+                      key={g.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={on}
+                      onClick={() => setIndex(ORDERED.findIndex((p) => p.segment === g.id))}
+                      className={`rounded-full px-3.5 py-1.5 text-[13px] font-medium transition-colors ${on ? 'bg-orange text-black' : 'text-[#a1a1aa] hover:text-[#f4f4f5]'}`}
+                    >
+                      {g.label}
+                    </button>
+                  );
+                })}
               </div>
-              <ul className="mt-3 space-y-1">
-                {m.items.map((item) => (
-                  <li key={item} className="font-mono text-[11.5px] text-soft">
-                    {item}
-                  </li>
+              {/* That segment's projects */}
+              <div role="tablist" aria-label="Projects" className="-my-1 flex min-w-0 flex-1 gap-1 overflow-x-auto py-1 [scrollbar-width:none] lg:justify-end [&::-webkit-scrollbar]:hidden">
+                {ORDERED.map((p, i) => {
+                  if (p.segment !== segment) return null;
+                  const on = i === index;
+                  return (
+                    <button
+                      key={p.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={on}
+                      aria-controls="use-case-board"
+                      onClick={() => setIndex(i)}
+                      className={`relative shrink-0 overflow-hidden rounded-full px-3.5 py-1.5 text-[13.5px] font-medium transition-colors ${on ? 'bg-white/[0.1] text-[#f4f4f5]' : 'text-[#a1a1aa] hover:text-[#f4f4f5]'}`}
+                    >
+                      {p.tab}
+                      {on && autoplay && <span key={index} aria-hidden="true" className="absolute inset-x-3 bottom-0.5 h-px origin-left bg-orange" style={{ animation: `chip-fill ${dwell(project)}ms linear both` }} />}
+                    </button>
+                  );
+                })}
+              </div>
+              {/* Show or hide 18+ frames, for the whole board */}
+              <button
+                type="button"
+                role="switch"
+                aria-checked={reveal}
+                onClick={() => setReveal((v) => !v)}
+                className="flex w-fit shrink-0 items-center gap-2.5 rounded-full bg-white/[0.05] py-1.5 pl-2 pr-3 text-[12.5px] font-medium text-[#d4d4d8] ring-1 ring-white/[0.08] transition-colors hover:text-white"
+              >
+                <span className="rounded bg-[#dc2626] px-1.5 py-px text-[9.5px] font-bold tracking-wide text-white">18+</span>
+                Show sensitive content
+                <span className={`relative h-4 w-7 rounded-full transition-colors ${reveal ? 'bg-orange' : 'bg-white/15'}`} aria-hidden="true">
+                  <span className={`absolute top-0.5 h-3 w-3 rounded-full bg-white shadow transition-[left] duration-300 ${reveal ? 'left-[14px]' : 'left-0.5'}`} />
+                </span>
+              </button>
+            </div>
+            {/*
+              Every project's board is stacked in the same grid cell: the live one on top,
+              invisible finished copies underneath. The area is always as tall as the tallest
+              board, so switching projects never changes the page height.
+            */}
+            <div id="use-case-board" role="tabpanel" aria-label={project.title} className="grid">
+              <div className="[grid-area:1/1]">
+                <Board key={project.id} project={project} />
+              </div>
+              <GhostContext.Provider value={true}>
+                {ORDERED.map((g) => (
+                  <div key={g.id} className="invisible [grid-area:1/1]" aria-hidden="true" inert>
+                    <Board project={g} />
+                  </div>
                 ))}
-              </ul>
-            </li>
-          ))}
-        </ul>
-
-        {/* Projects */}
-        <div className="theme-dark mt-6 overflow-hidden rounded-[30px] bg-[#0c0a09] shadow-[0_50px_120px_-50px_rgba(80,30,0,.6)]" data-reveal>
-          <div className="flex flex-col gap-3 border-b border-white/[0.07] px-4 py-3 sm:px-5 lg:flex-row lg:items-center">
-            {/* Who's building */}
-            <div role="tablist" aria-label="Who it's for" className="flex w-fit shrink-0 gap-1 rounded-full bg-white/[0.05] p-1 ring-1 ring-white/[0.08]">
-              {SEGMENTS.map((g) => {
-                const on = g.id === segment;
-                return (
-                  <button
-                    key={g.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={on}
-                    onClick={() => setIndex(ORDERED.findIndex((p) => p.segment === g.id))}
-                    className={`rounded-full px-3.5 py-1.5 text-[13px] font-medium transition-colors ${on ? 'bg-orange text-black' : 'text-[#a1a1aa] hover:text-[#f4f4f5]'}`}
-                  >
-                    {g.label}
-                  </button>
-                );
-              })}
+              </GhostContext.Provider>
             </div>
-            {/* That segment's projects */}
-            <div role="tablist" aria-label="Projects" className="-my-1 flex min-w-0 flex-1 gap-1 overflow-x-auto py-1 [scrollbar-width:none] lg:justify-end [&::-webkit-scrollbar]:hidden">
-              {ORDERED.map((p, i) => {
-                if (p.segment !== segment) return null;
-                const on = i === index;
-                return (
-                  <button
-                    key={p.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={on}
-                    aria-controls="use-case-board"
-                    onClick={() => setIndex(i)}
-                    className={`relative shrink-0 overflow-hidden rounded-full px-3.5 py-1.5 text-[13.5px] font-medium transition-colors ${on ? 'bg-white/[0.1] text-[#f4f4f5]' : 'text-[#a1a1aa] hover:text-[#f4f4f5]'}`}
-                  >
-                    {p.tab}
-                    {on && autoplay && <span key={index} aria-hidden="true" className="absolute inset-x-3 bottom-0.5 h-px origin-left bg-orange" style={{ animation: `chip-fill ${AUTOPLAY_MS}ms linear both` }} />}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-          <div id="use-case-board" role="tabpanel" aria-label={project.title}>
-            <Board key={project.id} project={project} />
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </RevealContext.Provider>
   );
 }

@@ -1,5 +1,5 @@
 // The live HeyOpen app. Every "Meet / Try HeyOpen" button opens it in a new tab.
-export const HEYOPEN_URL = 'https://ais.openledger.xyz/chat';
+export const HEYOPEN_URL = 'https://openledger-new.vercel.app/';
 export const heyOpenLink = { href: HEYOPEN_URL, target: '_blank', rel: 'noopener noreferrer' };
 
 // Official OpenLedger channels (from openledger.xyz).

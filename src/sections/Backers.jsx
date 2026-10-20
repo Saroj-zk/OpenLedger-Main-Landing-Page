@@ -2,25 +2,28 @@ import WaveField from '@/components/WaveField';
 
 // Logos from openledger.xyz, flattened to single-colour marks so they can be
 // tinted with the theme. `ratio` is the mark's width / height, used to give
-// every logo roughly the same visual weight.
+// every logo roughly the same visual weight. The rest are summed up as "And more".
 const backers = [
   ['Polychain Capital', 'polychain', 3.06],
   ['Borderless Capital', 'borderless', 5.12],
   ['Finality Capital Partners', 'finality', 3.94],
-  ['Hash3', 'hash3', 3.94],
-  ['HashKey Capital', 'hashkey', 3.0],
-  ['TRGC', 'trgc', 4.52],
-  ['STIX', 'stix', 2.66],
-  ['Mask Network', 'mask', 3.43],
-  ['MH Ventures', 'venture', 4.29],
-  ['WAGMI Ventures', 'wagmi', 1],
 ];
 
 const supporters = [
   ['Balaji Srinivasan', 'Former CTO, Coinbase'],
   ['Sreeram Kannan', 'Founder, EigenLayer'],
-  ['Sebastien Borget', 'Co-Founder, The Sandbox'],
 ];
+
+function AndMore({ className = '' }) {
+  return (
+    <li data-reveal className={`glass glass-dark flex items-center gap-4 rounded-[20px] p-5 ${className}`}>
+      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[12px] bg-orange/10 font-pixel text-[22px] text-orange ring-1 ring-orange/30" aria-hidden="true">
+        +
+      </span>
+      <p className="text-[17px] font-medium tracking-[-0.015em] text-fg">And more</p>
+    </li>
+  );
+}
 
 const initials = (name) =>
   name
@@ -62,19 +65,20 @@ export default function Backers() {
 
         </div>
 
-        <ul className="mt-16 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:mt-20 lg:grid-cols-5">
+        <ul className="mt-16 grid grid-cols-2 gap-3 lg:mt-20 lg:grid-cols-4">
           {backers.map(([name, file, ratio]) => (
             <li key={file} data-reveal className="glass glass-dark group grid h-[108px] place-items-center rounded-[20px] transition-transform duration-500 ease-[cubic-bezier(.16,1,.3,1)] hover:-translate-y-1 sm:h-[124px]">
               <Mark file={file} ratio={ratio} name={name} />
             </li>
           ))}
+          <AndMore className="h-[108px] justify-center sm:h-[124px]" />
         </ul>
 
         <div className="mt-16 flex items-center gap-4" data-reveal>
           <p className="eyebrow shrink-0">Supported by</p>
           <span className="h-px flex-1 bg-[var(--line-2)]" aria-hidden="true" />
         </div>
-        <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-6 grid gap-3 sm:grid-cols-3">
           {supporters.map(([name, role]) => (
             <li key={name} data-reveal className="glass glass-dark flex items-center gap-4 rounded-[20px] p-5">
               <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[12px] bg-orange/10 font-pixel text-[16px] text-orange ring-1 ring-orange/30" aria-hidden="true">
@@ -86,12 +90,7 @@ export default function Backers() {
               </div>
             </li>
           ))}
-          <li data-reveal className="glass glass-dark flex items-center gap-4 rounded-[20px] p-5">
-            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-[12px] bg-orange/10 font-pixel text-[22px] text-orange ring-1 ring-orange/30" aria-hidden="true">
-              +
-            </span>
-            <p className="text-[17px] font-medium tracking-[-0.015em] text-fg">And more</p>
-          </li>
+          <AndMore />
         </ul>
       </div>
     </section>

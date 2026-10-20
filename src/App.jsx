@@ -26,9 +26,9 @@ export default function App() {
         <Privacy />
         <Stack />
         <HeyOpen />
-        <Ecosystem />
         {/* Use cases replace the Protocol section (BuiltForAI.jsx), which is kept but hidden for now */}
         <UseCases />
+        <Ecosystem />
         <Backers />
         <Cta />
       </main>

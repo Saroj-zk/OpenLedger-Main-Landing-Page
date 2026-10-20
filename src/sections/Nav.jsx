@@ -6,8 +6,8 @@ const links = [
   ['Privacy', '#privacy'],
   ['Platform', '#stack'],
   ['HeyOpen', '#heyopen'],
-  ['Ecosystem', '#ecosystem'],
   ['Use cases', '#use-cases'],
+  ['Ecosystem', '#ecosystem'],
 ];
 
 // The bar floats over alternating black and paper sections, so it takes the

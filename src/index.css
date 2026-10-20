@@ -307,17 +307,11 @@
 
 /* AI Stack visuals */
 @keyframes marquee-y { to { transform: translateY(-50%); } }
+@keyframes marquee-x { to { transform: translateX(-50%); } }
 @keyframes mem-pulse {
   0% { border-color: rgba(255, 85, 0, 0.6); background: rgba(255, 85, 0, 0.12); }
   100% { border-color: rgba(255, 255, 255, 0.07); background: rgba(255, 255, 255, 0.03); }
 }
 
-/* Ecosystem honeycomb: rows of round logos packed hexagonally. */
-.comb { --cell: clamp(48px, 7.2vw, 96px); --gap: calc(var(--cell) * 0.2); }
-.comb-row + .comb-row { margin-top: calc((var(--cell) + var(--gap)) * 0.866 - var(--cell)); }
-.comb-cell { width: var(--cell); height: var(--cell); }
-.comb:not(.is-in) .comb-cell { opacity: 0; scale: 0.4; }
-.comb.is-in .comb-cell { animation: comb-in 0.9s var(--ease-out) both; }
-@keyframes comb-in { from { opacity: 0; scale: 0.4; } to { opacity: 1; scale: 1; } }
 @keyframes chip-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes row-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
