@@ -41,33 +41,32 @@ const PROJECTS = [
     title: 'A horror short film',
     who: 'For indie filmmakers and horror channels',
     tag: 'Uncensored',
-    why: 'Mainstream image and video models refuse blood, torture, and cannibalism. On HeyOpen every step runs on an uncensored model, so the film keeps its teeth.',
+    why: 'Mainstream image and video models refuse blood, gore, and a killer with a bone saw. On HeyOpen every step runs on an uncensored model, so the film keeps its teeth.',
     steps: [
       {
         kind: 'text',
         action: 'Write the script',
         model: 'Qwen3.6 35b Uncensored',
-        warnings: ['Gore', 'Torture', 'Cannibalism'],
+        warnings: ['Gore', 'Blood', 'Killing'],
         script: [
-          ['scene', 'INT. VOLK FARMHOUSE, CELLAR – NIGHT'],
-          ['action', 'Tallow candles. Steam off the stone floor. JUNE (20s) is roped to a butcher’s table, gagged, eyes wide.'],
-          ['action', 'AMOS VOLK (60s), apron black with old blood, runs a carving knife along her thigh. Blood fills the grooves of the table.'],
-          ['char', 'AMOS'],
-          ['paren', '(tender)'],
-          ['line', 'Hold still. The meat bruises when they fight.'],
-          ['scene', 'INT. VOLK KITCHEN – LATER'],
-          ['action', 'A cauldron boils on the range. A woman’s severed arm surfaces in the broth, then her face. Amos stirs with two ladles.'],
-          ['scene', 'INT. DINING ROOM – MIDNIGHT'],
-          ['action', 'A cracked china plate. A slab of meat swims in its own blood. A grey, trembling hand lifts the fork and cuts.'],
-          ['action', 'THE DINER chews slowly, mouth smeared red. Then he looks up, straight down the lens, and SCREAMS.'],
+          ['scene', 'INT. HALLORAN MALL, DEPARTMENT STORE – NIGHT'],
+          ['action', 'The roof has caved in. Moonlight through the gaps. TESS (20s), slashed across the face and arms, hides behind a rack of rotting dresses.'],
+          ['action', 'Glass crunches. THE BUTCHER, skin flayed raw, drags a bone saw across the tile. It leaves a wet red line.'],
+          ['char', 'THE BUTCHER'],
+          ['paren', '(sing-song)'],
+          ['line', 'I can smell you bleeding, Tess.'],
+          ['scene', 'INT. MAIN CONCOURSE – CONTINUOUS'],
+          ['action', 'Tess breaks cover and RUNS, blood streaming down her arms. He charges after her, saw raised over his head.'],
+          ['action', 'She trips on broken tile. The saw comes down and bites the floor an inch from her leg. Sparks. Grit.'],
+          ['action', 'She claws up, screaming, and runs past the shattered storefronts. Behind her, he never stops coming.'],
           ['trans', 'SMASH CUT TO BLACK.'],
         ],
-        note: 'Three scenes, written without a single refusal.',
+        note: 'Two scenes, written without a single refusal.',
       },
-      { kind: 'image', action: 'Storyboard every scene', model: 'Z Image Pro Uncensored', frames: [{ tone: 'blood', src: img('horror-1.webp'), rating: 'Cannibalism' }, { tone: 'ward', src: img('horror-2.webp'), rating: 'Torture' }], note: 'The cauldron and the cellar, drawn as written.' },
-      { kind: 'video', action: 'Animate the shots', model: 'Wan 3.0 Uncensored', tone: 'blood', src: img('horror.webm'), poster: img('horror.jpg'), rating: 'Cannibalism', length: 20, note: 'The midnight dinner, scene 3, in motion.' },
+      { kind: 'image', action: 'Storyboard every scene', model: 'Z Image Pro Uncensored', frames: [{ tone: 'blood', src: img('horror-1.webp'), rating: 'Blood' }, { tone: 'ward', src: img('horror-2.webp'), rating: 'Gore' }], note: 'The hiding place and the chase, drawn as written.' },
+      { kind: 'video', action: 'Animate the shots', model: 'Wan 3.0 Uncensored', tone: 'blood', src: img('horror.webm'), poster: img('horror.jpg'), rating: 'Graphic violence', length: 15, note: 'The concourse chase, scene 2, in motion.' },
     ],
-    result: 'A three-scene short: script, storyboard, and the dinner scene animated.',
+    result: 'A two-scene short: script, storyboard, and the chase animated.',
   },
   {
     id: 'novel',
@@ -82,27 +81,27 @@ const PROJECTS = [
         kind: 'text',
         action: 'Script every page',
         model: 'Gemma 4 26b A4b Uncensored',
-        warnings: ['Decapitation', 'Mutilation', 'Blood'],
+        warnings: ['Murder', 'Mutilation', 'Blood'],
         script: [
           ['scene', 'PAGE 1'],
-          ['action', 'PANEL 1. Night. Rain. An alley off Dock Street, wrapped in police tape. Flashguns pop. Evidence markers glow yellow.'],
-          ['action', 'PANEL 2. Wide. A man lies inside the chalk line, shirt torn open. No head. Beside marker 3: a plastic evidence bag. The head is in it.'],
+          ['action', 'PANEL 1. Wide. Night. Ashcombe Woods. Two patrol cars strobe blue through the fog. Tape strung between the oaks.'],
+          ['action', 'PANEL 2. A man on his back on the path, shirt torn away, chest and legs opened by long, deep cuts. Blood pooled black in the mud. A red handprint smeared down the bark.'],
           ['char', 'CAPTION'],
-          ['line', 'Victim number four. Same as the others. He takes the head, then leaves it for us.'],
-          ['action', 'PANEL 3. DETECTIVE RUIZ crouches, flashlight on the stump.'],
+          ['line', 'Victim number four. Same woods. Same blade.'],
+          ['action', 'PANEL 3. DETECTIVE RUIZ kneels, flashlight on the wounds. SGT. OKAFOR writes.'],
           ['char', 'RUIZ'],
-          ['line', 'Bone saw. He took his time with this one.'],
+          ['line', 'Twenty-two cuts. Not one of them killed him fast.'],
           ['scene', 'PAGE 2'],
-          ['action', 'PANEL 1. Extreme close. The victim’s hand, every finger split open to the knuckle.'],
+          ['action', 'PANEL 1. Extreme close. The victim’s face in the leaves, eyes still open, blood in his beard.'],
           ['char', 'RUIZ (OFF)'],
-          ['line', 'He was looking for something. A ring. A key.'],
-          ['action', 'PANEL 2. Ruiz stands. Rain runs off his hat brim.'],
-          ['char', 'RUIZ'],
-          ['line', 'Or he just likes the work.'],
+          ['line', 'He was alive for most of it.'],
+          ['action', 'PANEL 2. Okafor stops writing.'],
+          ['char', 'OKAFOR'],
+          ['line', 'Then he wanted him awake for it.'],
         ],
         note: 'Dark plots without the lecture.',
       },
-      { kind: 'image', action: 'Draw the panels', model: 'Qwen Image Max Uncensored', frames: [{ tone: 'noir', src: img('crime-1.webp'), rating: 'Decapitation' }, { tone: 'blood', src: img('crime-2.webp'), rating: 'Murder scene' }, { tone: 'blood', src: img('crime-3.webp'), rating: 'Mutilation' }], note: 'Page 1 and 2, panel by panel.' },
+      { kind: 'image', action: 'Draw the panels', model: 'Qwen Image Max Uncensored', frames: [{ tone: 'noir', src: img('crime-1.webp'), rating: 'Murder scene' }, { tone: 'blood', src: img('crime-2.webp'), rating: 'Mutilation' }, { tone: 'blood', src: img('crime-3.webp'), rating: 'Gore' }], note: 'Page 1 and 2, panel by panel.' },
     ],
     result: 'Two pages scripted and drawn, ready to letter.',
   },
@@ -362,18 +361,6 @@ const ORDERED = SEGMENTS.flatMap((g) => PROJECTS.filter((p) => p.segment === g.i
 // A board stays up at least AUTOPLAY_MS, and long enough for its clip to play through once.
 const dwell = (project) => Math.max(AUTOPLAY_MS, ...project.steps.map((st) => (st.length ? st.length * 1000 + 1500 : 0)));
 
-const TAG_STYLE = {
-  Uncensored: 'bg-orange/15 text-orange-amber ring-orange/35',
-  Private: 'bg-[#22c55e]/15 text-[#86efac] ring-[#22c55e]/35',
-  x402: 'bg-[#a855f7]/15 text-[#d8b4fe] ring-[#a855f7]/35',
-};
-
-/** The model a step runs on; uncensored and encrypted models are marked. */
-function ModelBadge({ model }) {
-  const tone = /Uncensored/.test(model) ? 'text-orange-amber' : /E2ee/.test(model) ? 'text-[#86efac]' : /x402|Pay per call/.test(model) ? 'text-[#d8b4fe]' : 'text-[#a1a1aa]';
-  return <span className={`truncate font-mono text-[10.5px] ${tone}`}>{model}</span>;
-}
-
 // Whether 18+ frames are shown unblurred. Off until the visitor turns it on.
 const RevealContext = createContext({ reveal: false, setReveal: () => {} });
 // Ghost boards: invisible, finished copies of every project that only size the board area.
@@ -404,8 +391,8 @@ const clamp = (v) => Math.min(1, Math.max(0, v));
 /** How many of `n` items are showing at progress `p`. */
 const shown = (p, n) => Math.min(n, Math.floor(p * n + 0.0001) + (p > 0 ? 1 : 0));
 
-const EyeOff = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+const EyeOff = ({ className = 'h-[18px] w-[18px]' }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
     <path d="M10.7 5.1A10.4 10.4 0 0 1 12 5c4.6 0 8.5 3 10 7a11.6 11.6 0 0 1-2.4 3.6M6.6 6.6A11.4 11.4 0 0 0 2 12c1.5 4 5.4 7 10 7a10.6 10.6 0 0 0 5.4-1.5" />
     <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2M3 3l18 18" />
   </svg>
@@ -420,15 +407,15 @@ const TONES = {
   ember: 'radial-gradient(30% 40% at 60% 50%, #ea580c, transparent), radial-gradient(48% 50% at 30% 62%, #1c2a1a, transparent), radial-gradient(18% 24% at 42% 30%, #fde68a, transparent), #070806',
 };
 
-/**
- * A generated image or clip. It resolves the way a generation does: out of a
- * heavy, dim blur into a softer one. A finished frame stays blurred behind a
- * content warning, the way platforms show sensitive media, until the visitor
- * switches 18+ content on.
- */
 const clock = (t) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, '0')}`;
 
-function Media({ tone, src, poster, rating, meta, length, p = 1, compact = false, className = '', children }) {
+/**
+ * A generated image or clip. It develops the way a print does: out of a dark,
+ * heavy blur into a softer one. A finished frame stays
+ * blurred behind a content warning, the way platforms show sensitive media,
+ * until the visitor switches sensitive content on.
+ */
+function Media({ tone, src, poster, rating, meta, length, p = 1, compact = false, small = false, className = '', children }) {
   const [played, setPlayed] = useState(0);
   const ghost = useContext(GhostContext);
   const { reveal, setReveal } = useContext(RevealContext);
@@ -439,15 +426,17 @@ function Media({ tone, src, poster, rating, meta, length, p = 1, compact = false
   const look = open
     ? { filter: 'none', transform: 'scale(1)', transition: 'filter .6s var(--ease-out), transform .6s var(--ease-out)' }
     : {
-        filter: `blur(${44 - (src ? 20 : 22) * e}px) saturate(${0.6 + 0.55 * e}) brightness(${0.55 + 0.45 * e})`,
+        filter: `blur(${44 - (src ? 20 : 22) * e}px) saturate(${0.6 + 0.55 * e}) brightness(${0.4 + 0.6 * e})`,
         transform: `scale(${1.18 - 0.06 * e})`,
         transition: done ? 'filter .6s var(--ease-out), transform .6s var(--ease-out)' : undefined,
       };
   const isClip = src && src.endsWith('.webm');
   const still = prefersReducedMotion();
+  const kind = isClip ? 'video' : 'image';
+  const shows = { Explicit: 'explicit nudity', 'Murder scene': 'a murder scene' }[rating] || (rating || 'graphic content').toLowerCase();
   return (
-    <div className={`relative overflow-hidden rounded-xl bg-black ring-1 ring-white/10 ${className}`}>
-      <div className="absolute -inset-6" style={{ background: TONES[tone], ...look }} aria-hidden="true" />
+    <div className={`relative overflow-hidden rounded-lg bg-[#060505] ${className}`}>
+      <div className="absolute -inset-6" style={{ background: TONES[tone], ...look, opacity: e }} aria-hidden="true" />
       {src && !ghost &&
         (isClip && !still ? (
           <video
@@ -461,42 +450,56 @@ function Media({ tone, src, poster, rating, meta, length, p = 1, compact = false
             onTimeUpdate={(ev) => setPlayed(ev.currentTarget.currentTime)}
             aria-hidden="true"
             className="absolute inset-0 h-full w-full object-cover"
-            style={{ ...look, opacity: 0.35 + 0.65 * e }}
+            style={{ ...look, opacity: e }}
           />
         ) : (
-          <img src={isClip ? poster : src} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" style={{ ...look, opacity: 0.35 + 0.65 * e }} />
+          <img src={isClip ? poster : src} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" style={{ ...look, opacity: e }} />
         ))}
-      {!open && <div className="absolute inset-0 bg-[radial-gradient(transparent_40%,rgba(0,0,0,.55))]" aria-hidden="true" />}
+      {!open && <div className="absolute inset-0 bg-[radial-gradient(transparent_35%,rgba(0,0,0,.6))]" aria-hidden="true" />}
       {done && (
-        <div className="absolute inset-0 animate-[row-in_.45s_var(--ease-out)_both]">
+        <div className="absolute inset-0 animate-[fade-in_.6s_var(--ease-out)_both]">
+          {/* Hidden behind one small pill: what it is, and a way to see it. The whole frame is clickable. */}
           {!open && (
             <button
               type="button"
               onClick={() => setReveal(true)}
-              aria-label={`Show ${rating ? rating.toLowerCase() + ' ' : ''}content (18+)`}
-              className="group/reveal absolute inset-0 grid place-items-center"
+              aria-label={`See sensitive ${kind}: may contain ${shows} (18+)`}
+              title={`May contain ${shows}`}
+              className="group/reveal absolute inset-0 grid place-items-center text-white"
             >
-              <span className="flex flex-col items-center gap-1.5 text-center">
-                <span className="grid h-8 w-8 place-items-center rounded-full bg-black/45 text-white ring-1 ring-white/20 backdrop-blur-sm transition-colors group-hover/reveal:bg-orange group-hover/reveal:text-black">
-                  <EyeOff />
+              {compact ? (
+                <EyeOff />
+              ) : (
+                <span className="flex items-center gap-2 rounded-full bg-black/45 py-[5px] pl-2.5 pr-1.5 text-[11.5px] ring-1 ring-white/15 backdrop-blur-md">
+                  <EyeOff className="h-3.5 w-3.5" />
+                  {!small && <span className="font-medium text-white/85">Sensitive</span>}
+                  <span className="rounded-full bg-white/15 px-2 py-px font-semibold transition-colors group-hover/reveal:bg-white group-hover/reveal:text-black">Show</span>
                 </span>
-                {rating && <span className="text-[11.5px] font-semibold text-white">{rating}</span>}
-                {!compact && <span className="text-[10px] text-white/60 group-hover/reveal:text-white">Sensitive content · click to view</span>}
-              </span>
+              )}
             </button>
           )}
-          <span className="pointer-events-none absolute left-2 top-2 rounded bg-[#dc2626] px-1.5 py-px text-[9.5px] font-bold tracking-wide text-white">18+</span>
-          {meta && <span className="pointer-events-none absolute bottom-2 right-2 font-mono text-[9.5px] text-white/70 [text-shadow:0_1px_4px_rgba(0,0,0,.8)]">{meta}</span>}
+          {!compact && (
+            <span className="absolute left-2.5 top-2.5 flex items-center gap-1.5">
+              <span className="pointer-events-none rounded-[3px] border border-white/30 bg-black/25 px-1 font-mono text-[9px] leading-[14px] text-white/85">18+</span>
+              {open && (
+                <button
+                  type="button"
+                  onClick={() => setReveal(false)}
+                  className="rounded-full bg-black/50 px-2.5 py-[2px] text-[10.5px] font-semibold text-white backdrop-blur-md transition-colors hover:bg-white hover:text-black"
+                >
+                  Hide
+                </button>
+              )}
+            </span>
+          )}
+          {meta && <span className="pointer-events-none absolute bottom-2.5 right-3 font-mono text-[9.5px] text-white/60 [text-shadow:0_1px_4px_rgba(0,0,0,.8)]">{meta}</span>}
           <div className="pointer-events-none">{children}</div>
           {length && (
-            <div className="pointer-events-none absolute inset-x-2.5 bottom-2.5 flex items-center gap-2" aria-hidden="true">
-              <svg viewBox="0 0 16 16" className="h-3 w-3 shrink-0 text-white" fill="currentColor">
-                <path d="M4 2.5v11l9-5.5z" />
-              </svg>
-              <span className="h-1 flex-1 overflow-hidden rounded-full bg-white/20">
-                <span className="block h-full bg-orange transition-[width] duration-300 ease-linear" style={{ width: `${Math.min(100, (played / length) * 100)}%` }} />
+            <div className="pointer-events-none absolute inset-x-3 bottom-3 flex items-center gap-3" aria-hidden="true">
+              <span className="relative h-[2px] flex-1 overflow-hidden rounded-full bg-white/20">
+                <span className="absolute inset-y-0 left-0 bg-orange transition-[width] duration-300 ease-linear" style={{ width: `${Math.min(100, (played / length) * 100)}%` }} />
               </span>
-              <span className="font-mono text-[10px] text-white/80 [text-shadow:0_1px_4px_rgba(0,0,0,.8)]">
+              <span className="font-mono text-[10px] tabular-nums text-white/80 [text-shadow:0_1px_4px_rgba(0,0,0,.8)]">
                 {clock(Math.min(played, length))} / {clock(length)}
               </span>
             </div>
@@ -507,8 +510,8 @@ function Media({ tone, src, poster, rating, meta, length, p = 1, compact = false
   );
 }
 
-const panel = 'h-full overflow-hidden rounded-xl ring-1 ring-white/10';
-const Caret = () => <span className="ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[2px] animate-pulse bg-orange" aria-hidden="true" />;
+const panel = 'h-full overflow-hidden rounded-lg bg-white/[0.022] ring-1 ring-inset ring-white/[0.05]';
+const Caret = () => <span className="ml-px inline-block h-[1.05em] w-px translate-y-[2px] animate-pulse bg-orange" aria-hidden="true" />;
 
 /**
  * How much of each line is typed when `p` of the whole text is done, and which
@@ -543,15 +546,15 @@ function Typed({ lines, p, className = '' }) {
   );
 }
 
-// Screenplay formatting: scene headings, action, character cues, dialogue.
+// Screenplay formatting, set in mono like a real script page: scene headings, action, cues, dialogue.
 const SCRIPT_STYLE = {
-  scene: 'pt-1 font-mono text-[10.5px] uppercase tracking-[0.08em] text-orange-amber first:pt-0',
-  action: 'text-[12.5px] leading-[1.55] text-[#d4d4d8]',
-  char: 'pt-1 text-center font-mono text-[10.5px] uppercase tracking-[0.14em] text-[#f4f4f5]',
-  paren: 'text-center text-[11.5px] italic text-[#a1a1aa]',
-  line: 'mx-auto max-w-[84%] text-center text-[12.5px] leading-[1.5] text-[#f4f4f5]',
-  choice: 'rounded-md bg-white/[0.05] px-2 py-1 font-mono text-[11px] text-orange-amber',
-  trans: 'pt-1 text-right font-mono text-[10.5px] uppercase tracking-[0.12em] text-[#a1a1aa]',
+  scene: 'pt-2 font-medium uppercase text-bone first:pt-0',
+  action: 'text-bone/65',
+  char: 'pt-1.5 text-center uppercase text-bone/90',
+  paren: 'text-center text-bone/40',
+  line: 'mx-auto max-w-[76%] text-center text-bone/90',
+  choice: 'pl-[12%] text-orange-amber/90',
+  trans: 'pt-1.5 text-right uppercase text-bone/40',
 };
 
 /** A script that types itself out and keeps the newest line in view. */
@@ -563,7 +566,7 @@ function Script({ entries, p }) {
     if (el && p < 1) el.scrollTop = el.scrollHeight;
   }, [p]);
   return (
-    <div ref={box} className="min-h-0 flex-1 space-y-1.5 overflow-y-auto pr-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div ref={box} className="min-h-0 flex-1 space-y-1.5 overflow-y-auto pr-1 font-mono text-[11px] leading-[1.6] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       {entries.map(([type, text], i) =>
         counts[i] > 0 || i === caret ? (
           <p key={i} className={SCRIPT_STYLE[type]}>
@@ -576,12 +579,14 @@ function Script({ entries, p }) {
   );
 }
 
+const rowIn = 'animate-[row-in_.4s_var(--ease-out)_both]';
+
 function StepBody({ step, p }) {
   switch (step.kind) {
     case 'image': {
       const n = step.frames.length;
       return (
-        <div className={`grid h-full gap-1.5 ${n === 3 ? 'grid-cols-2 grid-rows-2' : n === 2 ? 'grid-cols-2' : ''}`}>
+        <div className={`grid h-full gap-1 ${n === 3 ? 'grid-cols-2 grid-rows-2' : n === 2 ? 'grid-cols-2' : ''}`}>
           {step.frames.map((f, i) => (
             <Media
               tone={f.tone}
@@ -589,8 +594,8 @@ function StepBody({ step, p }) {
               key={i}
               rating={f.rating}
               p={clamp((p - i * 0.18) / (1 - (n - 1) * 0.18))}
-              compact={n === 3 && i > 0}
-              meta={n === 1 || (n === 3 && i === 0) ? '1024×1536 · filter off' : undefined}
+              small={n === 3 && i > 0}
+              meta={n === 1 || (n === 3 && i === 0) ? '1376 × 768' : undefined}
               className={n === 3 && i === 0 ? 'row-span-2' : ''}
             />
           ))}
@@ -600,17 +605,19 @@ function StepBody({ step, p }) {
     case 'video':
       return (
         <Media tone={step.tone} src={step.src} poster={step.poster} rating={step.rating} length={step.length} p={p} className="h-full">
-          <span className="absolute right-2 top-2 rounded bg-black/50 px-1.5 py-px font-mono text-[9.5px] text-white/75">1080p · 24fps</span>
+          <span className="absolute right-3 top-2.5 font-mono text-[9.5px] text-white/65 [text-shadow:0_1px_4px_rgba(0,0,0,.8)]">1080p · 24fps</span>
         </Media>
       );
     case 'code': {
       const { counts, caret } = typing(step.code.map(([, l]) => l), p);
       return (
-        <div className={`${panel} space-y-0.5 bg-black/50 p-3 font-mono text-[11.5px] leading-[1.7]`}>
+        <div className={`${panel} flex flex-col p-3.5 font-mono text-[11.5px] leading-[1.75]`}>
+          <p className="mb-2.5 border-b border-white/[0.06] pb-2.5 text-[10.5px] text-bone/40">auth/session.ts</p>
           {step.code.map(([mark, line], i) =>
             counts[i] > 0 || i === caret ? (
-              <p key={i} className={`whitespace-pre rounded px-1 ${mark === '+' ? 'bg-[#22c55e]/12 text-[#86efac]' : mark === '-' ? 'bg-[#ef4444]/12 text-[#fca5a5]' : 'text-[#a1a1aa]'}`}>
-                {mark || ' '} {line.slice(0, counts[i])}
+              <p key={i} className={`whitespace-pre rounded-[3px] px-1.5 ${mark === '+' ? 'bg-[#22c55e]/[0.08] text-[#a7dfb6]' : mark === '-' ? 'bg-[#ef4444]/[0.08] text-[#e3a3a3]' : 'text-bone/50'}`}>
+                <span className="mr-2 text-bone/30">{mark || ' '}</span>
+                {line.slice(0, counts[i])}
                 {i === caret && <Caret />}
               </p>
             ) : null,
@@ -619,16 +626,18 @@ function StepBody({ step, p }) {
       );
     }
     case 'log':
+      // A plain HTTP transcript: the request, the 402 asking for payment, the paid retry.
       return (
-        <div className={`${panel} flex flex-col justify-center gap-1.5 bg-black/50 p-3 font-mono text-[11px]`}>
+        <div className={`${panel} flex flex-col justify-center px-4 font-mono text-[11px]`}>
           {step.log.slice(0, shown(p, step.log.length)).map(([dir, what, meta], i) => {
-            const pay = what.startsWith('402');
-            const ok = what.startsWith('200');
+            const [head, ...tail] = what.split(' ');
+            const status = /^\d{3}$/.test(head);
             return (
-              <p key={i} className={`flex animate-[row-in_.35s_var(--ease-out)_both] items-center gap-2 rounded-md px-2 py-1.5 ${pay ? 'bg-[#a855f7]/12' : ok ? 'bg-[#22c55e]/10' : 'bg-white/[0.03]'}`}>
-                <span className="text-[#71717a]">{dir}</span>
-                <span className={pay ? 'text-[#d8b4fe]' : ok ? 'text-[#86efac]' : 'text-[#e4e4e7]'}>{what}</span>
-                <span className="ml-auto truncate text-[10px] text-[#71717a]">{meta}</span>
+              <p key={i} className={`flex items-center gap-2.5 border-b border-white/[0.06] py-2.5 last:border-0 ${rowIn}`}>
+                <span className="text-bone/25">{dir}</span>
+                <span className={status ? (head === '402' ? 'text-orange' : 'text-bone') : 'text-bone/40'}>{head}</span>
+                <span className="text-bone/80">{tail.join(' ')}</span>
+                <span className="ml-auto truncate text-[10px] text-bone/35">{meta}</span>
               </p>
             );
           })}
@@ -636,35 +645,44 @@ function StepBody({ step, p }) {
       );
     case 'files':
       return (
-        <div className={`${panel} flex flex-col gap-1.5 bg-black/50 p-3`}>
+        <div className={`${panel} flex flex-col px-4 py-1.5`}>
           {step.files.slice(0, shown(p, step.files.length)).map(([name, meta]) => (
-            <p key={name} className="flex animate-[row-in_.35s_var(--ease-out)_both] items-center gap-2.5 rounded-md bg-white/[0.035] px-2.5 py-2 text-[11.5px]">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 shrink-0 text-[#86efac]" aria-hidden="true">
+            <p key={name} className={`flex items-center gap-3 border-b border-white/[0.06] py-2.5 text-[12px] ${rowIn}`}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 shrink-0 text-bone/40" aria-hidden="true">
                 <rect width="18" height="11" x="3" y="11" rx="2" />
                 <path d="M7 11V7a5 5 0 0 1 10 0v4" />
               </svg>
-              <span className="min-w-0 flex-1 truncate text-[#e4e4e7]">{name}</span>
-              <span className="shrink-0 font-mono text-[10px] text-[#71717a]">{meta}</span>
+              <span className="min-w-0 flex-1 truncate text-bone/85">{name}</span>
+              <span className="shrink-0 font-mono text-[10px] text-bone/35">{meta}</span>
             </p>
           ))}
-          {p >= 1 && <p className="mt-auto animate-[row-in_.35s_var(--ease-out)_both] px-1 text-[10.5px] text-[#86efac]">Encrypted end to end · not stored</p>}
+          {p >= 1 && <p className={`mt-auto py-2.5 font-mono text-[10px] uppercase tracking-[0.1em] text-bone/40 ${rowIn}`}>Encrypted end to end · not stored</p>}
         </div>
       );
     case 'ledger':
+      // Set like a receipt: items with dotted leaders, then the total.
       return (
-        <div className={`${panel} flex flex-col bg-black/50 p-3`}>
-          <ul className="space-y-1.5">
+        <div className={`${panel} flex flex-col px-4 py-3.5`}>
+          <p className="flex justify-between border-b border-dashed border-white/10 pb-2.5 font-mono text-[10px] uppercase tracking-[0.1em] text-bone/35">
+            <span>Usage</span>
+            <span>OPEN</span>
+          </p>
+          <ul>
             {step.rows.slice(0, shown(p, step.rows.length)).map(([what, model, cost]) => (
-              <li key={what} className="flex animate-[row-in_.35s_var(--ease-out)_both] items-center gap-2 rounded-md bg-white/[0.035] px-2.5 py-2 text-[11.5px]">
-                <span className="text-[#e4e4e7]">{what}</span>
-                <span className="truncate font-mono text-[10px] text-[#71717a]">{model}</span>
-                <span className="ml-auto font-mono text-[10.5px] text-[#d4d4d8]">{cost}</span>
+              <li key={what} className={`flex items-baseline gap-2 py-2.5 text-[12.5px] ${rowIn}`}>
+                <span className="text-bone/85">{what}</span>
+                <span className="truncate font-mono text-[10px] text-bone/35">{model}</span>
+                <span className="mx-1 min-w-4 flex-1 -translate-y-[3px] border-b border-dotted border-white/15" aria-hidden="true" />
+                <span className="font-mono text-[11.5px] tabular-nums text-bone/85">{cost}</span>
               </li>
             ))}
           </ul>
-          <p className="mt-auto flex items-center justify-between border-t border-white/[0.08] px-1 pt-2.5 text-[11.5px]">
-            <span className="text-[#a1a1aa]">Paid over x402</span>
-            <span className="font-mono text-[#f4f4f5]">{p >= 1 ? step.total : '…'} OPEN</span>
+          <p className="mt-auto flex items-baseline justify-between border-t border-white/10 pt-3">
+            <span className="text-[12px] text-bone/50">Paid over x402</span>
+            <span className="font-mono text-[16px] tabular-nums tracking-[-0.02em] text-bone">
+              {p >= 1 ? step.total : '—'}
+              <span className="ml-1.5 text-[10px] tracking-normal text-bone/40">OPEN</span>
+            </span>
           </p>
         </div>
       );
@@ -672,32 +690,37 @@ function StepBody({ step, p }) {
       // Each message lands in turn; a reply is preceded by a moment of typing.
       const n = step.lines.length;
       const visible = shown(p, n);
-      const typingNext = p < 1 && visible < n && step.lines[visible]?.[0] !== 'you';
+      const next = step.lines[visible]?.[0];
+      const typingNext = p < 1 && visible < n && next !== 'you';
+      const name = (who, i) => i === 0 || step.lines[i - 1][0] !== who;
       return (
-        <div className={`${panel} flex flex-col justify-end gap-2 bg-black/40 p-3`}>
-          {step.lines.slice(0, visible).map(([who, text]) =>
-            text === 'photo' ? (
-              <div key="photo" className="flex w-[72%] animate-[row-in_.35s_var(--ease-out)_both] items-center gap-2.5 rounded-2xl rounded-bl-md bg-orange/[0.12] p-1.5 pr-3 ring-1 ring-orange/25">
-                <Media tone="skin" src={img('character.webp')} rating="" compact className="h-11 w-11 shrink-0 rounded-lg" />
-                <span className="text-[11.5px] leading-tight text-[#f4f4f5]">
-                  {who} sent a photo
-                  <span className="block text-[10px] text-white/55">Explicit · tap to view</span>
-                </span>
-              </div>
-            ) : (
-              <p
-                key={text}
-                className={`max-w-[92%] animate-[row-in_.35s_var(--ease-out)_both] rounded-2xl px-3 py-2 text-[12.5px] leading-snug ${who === 'you' ? 'ml-auto rounded-br-md bg-white/[0.1] text-[#f4f4f5]' : 'rounded-bl-md bg-orange/[0.12] text-[#f4f4f5] ring-1 ring-orange/25'}`}
-              >
-                {who !== 'you' && <span className="mb-0.5 block text-[10.5px] font-medium text-orange-amber">{who}</span>}
+        <div className={`${panel} flex flex-col justify-end gap-3 p-4`}>
+          {step.lines.slice(0, visible).map(([who, text], i) =>
+            who === 'you' ? (
+              <p key={text} className={`ml-auto max-w-[85%] rounded-[14px] rounded-br-[4px] bg-white/[0.08] px-3 py-2 text-[12.5px] leading-snug text-bone/90 ${rowIn}`}>
                 {text}
               </p>
+            ) : (
+              <div key={text} className={`max-w-[92%] border-l border-orange/70 pl-3 ${rowIn}`}>
+                {name(who, i) && <p className="mb-1 font-mono text-[9.5px] uppercase tracking-[0.12em] text-bone/40">{who}</p>}
+                {text === 'photo' ? (
+                  <div className="flex items-center gap-3">
+                    <Media tone="skin" src={img('character.webp')} rating="Explicit" compact className="h-12 w-12 shrink-0 rounded-md" />
+                    <span className="text-[12px] leading-tight text-bone/85">
+                      Sent a photo
+                      <span className="mt-0.5 block text-[10.5px] text-bone/40">Explicit · tap to view</span>
+                    </span>
+                  </div>
+                ) : (
+                  <p className="text-[12.5px] leading-snug text-bone/90">{text}</p>
+                )}
+              </div>
             ),
           )}
           {typingNext && (
-            <span className="flex w-fit gap-1 rounded-2xl rounded-bl-md bg-orange/[0.12] px-3 py-2.5 ring-1 ring-orange/25" aria-hidden="true">
+            <span className="flex w-fit gap-1 border-l border-orange/70 py-1 pl-3" aria-hidden="true">
               {[0, 1, 2].map((d) => (
-                <span key={d} className="h-1.5 w-1.5 animate-pulse rounded-full bg-orange-amber" style={{ animationDelay: `${d * 0.18}s` }} />
+                <span key={d} className="h-1 w-1 animate-pulse rounded-full bg-bone/50" style={{ animationDelay: `${d * 0.18}s` }} />
               ))}
             </span>
           )}
@@ -708,23 +731,19 @@ function StepBody({ step, p }) {
       // A script, or a page of notes, typed out
       const [heading, ...rest] = step.lines || [];
       return (
-        <div className={`${panel} flex flex-col bg-[#111113] p-4`}>
+        <div className={`${panel} flex flex-col p-4`}>
           {step.warnings && (
-            <p className="mb-3 flex flex-wrap items-center gap-1">
-              <span className="mr-1 text-[9.5px] font-bold tracking-wide text-[#f87171]">CONTENT WARNING</span>
-              {step.warnings.map((w) => (
-                <span key={w} className="rounded bg-[#dc2626]/15 px-1.5 py-px text-[10px] text-[#fca5a5] ring-1 ring-[#dc2626]/30">
-                  {w}
-                </span>
-              ))}
+            <p className="mb-3 flex flex-wrap items-baseline gap-x-2 border-b border-white/[0.06] pb-2.5 font-mono text-[9.5px] uppercase tracking-[0.1em]">
+              <span className="text-orange">Content warning</span>
+              <span className="text-bone/45">{step.warnings.join(' · ')}</span>
             </p>
           )}
           {step.script ? (
             <Script entries={step.script} p={p} />
           ) : (
             <>
-              <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-[#a1a1aa]">{heading}</p>
-              <Typed lines={rest} p={p} className="mt-2 space-y-1.5 text-[13.5px] leading-[1.55] text-[#e4e4e7]" />
+              <p className="border-b border-white/[0.06] pb-2.5 font-mono text-[10px] uppercase tracking-[0.1em] text-bone/45">{heading}</p>
+              <Typed lines={rest} p={p} className="mt-3 space-y-2 text-[13px] leading-[1.6] text-bone/85" />
             </>
           )}
         </div>
@@ -736,15 +755,37 @@ function StepBody({ step, p }) {
 // How long each kind of step takes to generate, and what it says while it does.
 const RUN = {
   text: [2800, 'Writing'],
-  image: [3200, 'Generating images'],
-  video: [3600, 'Rendering video'],
-  code: [2400, 'Writing code'],
-  log: [2200, 'Connecting over x402'],
-  files: [2000, 'Encrypting and reading'],
-  ledger: [2200, 'Paying per call'],
+  image: [3200, 'Generating'],
+  video: [3600, 'Generating'],
+  code: [2400, 'Coding'],
+  log: [2200, 'Connecting'],
+  files: [2000, 'Reading'],
+  ledger: [2200, 'Settling'],
   chat: [2600, 'Replying'],
 };
 const STAGGER = 1500;
+
+/** Where a step is: waiting its turn, working (with a running clock), or done and how long it took. */
+function Status({ p, verb, secs }) {
+  const base = 'flex shrink-0 items-center gap-1.5 font-mono text-[10.5px] leading-5';
+  if (p <= 0) return <span className={`${base} text-bone/25`}>Queued</span>;
+  if (p < 1)
+    return (
+      <span className={`${base} text-bone/75`}>
+        <span className="h-[5px] w-[5px] animate-pulse rounded-full bg-orange" aria-hidden="true" />
+        {verb}
+        <span className="w-9 text-right tabular-nums text-bone/40">{secs.toFixed(1)}s</span>
+      </span>
+    );
+  return (
+    <span className={`${base} text-bone/35`}>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3" aria-hidden="true">
+        <path d="m3.5 8.5 3 3 6-7" />
+      </svg>
+      <span className="tabular-nums">{secs.toFixed(1)}s</span>
+    </span>
+  );
+}
 
 function Step({ step, i }) {
   const [base, verb] = RUN[step.kind] || RUN.text;
@@ -754,61 +795,56 @@ function Step({ step, i }) {
   const p = useRun(i * STAGGER, duration, ghost);
   const done = p >= 1;
   return (
-    <li className="flex flex-col rounded-[20px] bg-white/[0.035] p-2.5 ring-1 ring-white/[0.08]" style={{ animation: `row-in .5s ${i * 0.1}s var(--ease-out) both` }}>
-      <div className="flex items-center justify-between gap-3 px-1.5 pb-2.5 pt-1">
-        <span className="text-[13.5px] font-medium text-[#f4f4f5]">
-          <span className="mr-2 font-mono text-[11px] text-orange">0{i + 1}</span>
-          {step.action}
-        </span>
-        <ModelBadge model={step.model} />
+    <li className="flex flex-col bg-[#0a0908] p-4 sm:p-5" style={{ animation: `row-in .5s ${i * 0.08}s var(--ease-out) both` }}>
+      <div className="flex items-start gap-3 pb-4">
+        <span className="font-pixel text-[13px] leading-5 text-bone/30">0{i + 1}</span>
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-[14px] font-medium leading-5 tracking-[-0.01em] text-bone">{step.action}</p>
+          <p className="mt-0.5 truncate font-mono text-[10.5px] text-bone/40">{step.model}</p>
+        </div>
+        <Status p={p} verb={verb} secs={(p * duration) / 1000} />
       </div>
       <div className="h-[240px]">
         <StepBody step={step} p={p} />
       </div>
-      <p className="flex items-center gap-2 px-1.5 pb-1 pt-3 text-[13px] leading-snug text-[#a1a1aa]">
-        {done ? (
-          step.note
-        ) : (
-          <>
-            <span className={`h-3 w-3 shrink-0 rounded-full border-[1.5px] ${p > 0 ? 'animate-spin border-orange/25 border-t-orange' : 'border-white/15'}`} aria-hidden="true" />
-            {p > 0 ? `${verb}…` : 'Queued'}
-          </>
-        )}
-      </p>
+      <p className={`pt-4 text-[13px] leading-snug text-bone/50 transition-opacity duration-500 ${done ? 'opacity-100' : 'opacity-0'}`}>{step.note}</p>
     </li>
   );
 }
 
 function Board({ project }) {
   const n = project.steps.length;
+  const segment = SEGMENTS.find((g) => g.id === project.segment).label;
   return (
-    <div className="px-5 py-7 sm:px-8 sm:py-9">
-      <div className="grid gap-5 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-12">
+    <div className="flex h-full flex-col px-5 py-8 sm:px-9 sm:py-10">
+      <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:gap-16">
         <div>
-          <p className="flex items-center gap-2.5">
-            <span className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-bone/45">You can build</span>
-            <span className={`rounded-full px-2.5 py-[2px] text-[11px] font-medium ring-1 ${TAG_STYLE[project.tag]}`}>{project.tag}</span>
+          <p className="eyebrow !text-[11px]">
+            {segment}
+            <span className="mx-2 text-bone/20">/</span>
+            <b>{project.tag}</b>
           </p>
-          <h3 className="mt-3 text-[26px] font-medium leading-tight tracking-[-0.025em] text-[#f4f4f5] sm:text-[32px]">{project.title}</h3>
-          <p className="mt-2 text-[15px] text-[#a1a1aa]">{project.who}</p>
+          <h3 className="mt-4 text-[27px] font-medium leading-[1.1] tracking-[-0.03em] text-bone sm:text-[34px]">{project.title}</h3>
+          <p className="mt-2.5 text-[15px] text-bone/50">{project.who}</p>
         </div>
-        <p className="border-l-2 border-orange pl-4 text-[14px] leading-relaxed text-[#d4d4d8]">{project.why}</p>
+        <p className="max-w-[52ch] text-[14.5px] leading-[1.65] text-bone/60 lg:pb-1">{project.why}</p>
       </div>
 
       {/* How you'd build it in HeyOpen, step by step, generating in turn */}
-      <ol className={`mt-8 grid gap-3 ${n === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
+      <ol className={`mt-9 grid gap-px overflow-hidden rounded-2xl bg-white/[0.07] ring-1 ring-white/[0.07] ${n === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
         {project.steps.map((step, i) => (
           <Step key={step.action} step={step} i={i} />
         ))}
       </ol>
 
-      <div className="mt-6 flex flex-col gap-4 border-t border-white/[0.08] pt-5 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-[14.5px] text-[#e4e4e7]">
-          <span className="mr-2.5 font-mono text-[10.5px] uppercase tracking-[0.12em] text-bone/45">What you end up with</span>
-          {project.result}
+      {/* Pinned to the bottom, so every board ends on the same line */}
+      <div className="mt-auto flex flex-col gap-4 pt-7 sm:flex-row sm:items-center sm:justify-between">
+        <p className="flex flex-col gap-1.5 sm:flex-row sm:items-baseline sm:gap-4">
+          <span className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-bone/35">The result</span>
+          <span className="text-[15px] tracking-[-0.01em] text-bone/90">{project.result}</span>
         </p>
         <a {...heyOpenLink} className="btn btn-primary w-fit shrink-0">
-          Start building
+          Start building <span className="arrow" aria-hidden="true">→</span>
         </a>
       </div>
     </div>
@@ -860,9 +896,9 @@ export default function UseCases() {
           <ul className="mt-14 grid gap-px overflow-hidden rounded-[22px] bg-[var(--line-2)] ring-1 ring-[var(--line-2)] sm:grid-cols-2 lg:mt-16 lg:grid-cols-5" data-reveal>
             {MODALITIES.map((m) => (
               <li key={m.name} className="bg-[#0a0908] p-5">
-                <div className="flex items-center justify-between gap-2">
+                <div className="flex items-baseline justify-between gap-2">
                   <p className="text-[17px] font-medium tracking-[-0.015em] text-fg">{m.name}</p>
-                  <span className="rounded-full bg-orange/10 px-2 py-[2px] text-[10.5px] font-medium text-orange-amber ring-1 ring-orange/30">{m.badge}</span>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-orange-amber/80">{m.badge}</span>
                 </div>
                 <ul className="mt-3 space-y-1">
                   {m.items.map((item) => (
@@ -876,10 +912,10 @@ export default function UseCases() {
           </ul>
 
           {/* Projects */}
-          <div className="theme-dark mt-6 overflow-hidden rounded-[30px] bg-[#0c0a09] shadow-[0_50px_120px_-50px_rgba(255,85,0,.25)] ring-1 ring-white/10" data-reveal>
-            <div className="flex flex-col gap-3 border-b border-white/[0.07] px-4 py-3 sm:px-5 lg:flex-row lg:items-center">
+          <div className="theme-dark mt-6 overflow-hidden rounded-[22px] bg-[#0a0908] ring-1 ring-[var(--line-2)]" data-reveal>
+            <div className="flex flex-col border-b border-white/[0.08] px-5 sm:px-9 lg:flex-row lg:items-stretch lg:gap-8">
               {/* Who's building */}
-              <div role="tablist" aria-label="Who it's for" className="flex w-fit shrink-0 gap-1 rounded-full bg-white/[0.05] p-1 ring-1 ring-white/[0.08]">
+              <div role="tablist" aria-label="Who it's for" className="flex shrink-0 items-center gap-5 pt-4 sm:gap-6 lg:pt-0">
                 {SEGMENTS.map((g) => {
                   const on = g.id === segment;
                   return (
@@ -889,15 +925,17 @@ export default function UseCases() {
                       role="tab"
                       aria-selected={on}
                       onClick={() => setIndex(ORDERED.findIndex((p) => p.segment === g.id))}
-                      className={`rounded-full px-3.5 py-1.5 text-[13px] font-medium transition-colors ${on ? 'bg-orange text-black' : 'text-[#a1a1aa] hover:text-[#f4f4f5]'}`}
+                      className={`flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] transition-colors ${on ? 'text-bone' : 'text-bone/35 hover:text-bone/75'}`}
                     >
+                      <span className={`h-[5px] w-[5px] rounded-full transition-colors ${on ? 'bg-orange' : 'bg-transparent'}`} aria-hidden="true" />
                       {g.label}
                     </button>
                   );
                 })}
               </div>
+              <span className="hidden w-px self-stretch bg-white/[0.08] lg:my-4 lg:block" aria-hidden="true" />
               {/* That segment's projects */}
-              <div role="tablist" aria-label="Projects" className="-my-1 flex min-w-0 flex-1 gap-1 overflow-x-auto py-1 [scrollbar-width:none] lg:justify-end [&::-webkit-scrollbar]:hidden">
+              <div role="tablist" aria-label="Projects" className="-mx-3 flex min-w-0 flex-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {ORDERED.map((p, i) => {
                   if (p.segment !== segment) return null;
                   const on = i === index;
@@ -909,10 +947,14 @@ export default function UseCases() {
                       aria-selected={on}
                       aria-controls="use-case-board"
                       onClick={() => setIndex(i)}
-                      className={`relative shrink-0 overflow-hidden rounded-full px-3.5 py-1.5 text-[13.5px] font-medium transition-colors ${on ? 'bg-white/[0.1] text-[#f4f4f5]' : 'text-[#a1a1aa] hover:text-[#f4f4f5]'}`}
+                      className={`relative shrink-0 px-3 py-4 text-[13.5px] tracking-[-0.01em] transition-colors ${on ? 'text-bone' : 'text-bone/45 hover:text-bone/80'}`}
                     >
                       {p.tab}
-                      {on && autoplay && <span key={index} aria-hidden="true" className="absolute inset-x-3 bottom-0.5 h-px origin-left bg-orange" style={{ animation: `chip-fill ${dwell(project)}ms linear both` }} />}
+                      {on && (
+                        <span aria-hidden="true" className="absolute inset-x-3 -bottom-px h-px bg-white/20">
+                          <span key={index} className="absolute inset-0 origin-left bg-orange" style={autoplay ? { animation: `chip-fill ${dwell(project)}ms linear both` } : undefined} />
+                        </span>
+                      )}
                     </button>
                   );
                 })}
@@ -923,12 +965,12 @@ export default function UseCases() {
                 role="switch"
                 aria-checked={reveal}
                 onClick={() => setReveal((v) => !v)}
-                className="flex w-fit shrink-0 items-center gap-2.5 rounded-full bg-white/[0.05] py-1.5 pl-2 pr-3 text-[12.5px] font-medium text-[#d4d4d8] ring-1 ring-white/[0.08] transition-colors hover:text-white"
+                className="flex w-fit shrink-0 items-center gap-2.5 pb-4 text-[12.5px] text-bone/55 transition-colors hover:text-bone lg:py-4"
               >
-                <span className="rounded bg-[#dc2626] px-1.5 py-px text-[9.5px] font-bold tracking-wide text-white">18+</span>
-                Show sensitive content
-                <span className={`relative h-4 w-7 rounded-full transition-colors ${reveal ? 'bg-orange' : 'bg-white/15'}`} aria-hidden="true">
-                  <span className={`absolute top-0.5 h-3 w-3 rounded-full bg-white shadow transition-[left] duration-300 ${reveal ? 'left-[14px]' : 'left-0.5'}`} />
+                <span className="rounded-[3px] border border-white/25 px-1 font-mono text-[9px] leading-[14px] text-bone/70">18+</span>
+                Sensitive content
+                <span className={`relative h-[18px] w-8 rounded-full ring-1 ring-inset transition-colors ${reveal ? 'bg-orange ring-orange' : 'bg-white/[0.04] ring-white/20'}`} aria-hidden="true">
+                  <span className={`absolute top-[3px] h-3 w-3 rounded-full transition-[left,background-color] duration-300 ${reveal ? 'left-[17px] bg-[#0a0400]' : 'left-[3px] bg-bone/60'}`} />
                 </span>
               </button>
             </div>
