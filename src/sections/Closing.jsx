@@ -3,12 +3,14 @@ import { Arrow, Logo } from '@/components/ui';
 import { SOCIALS, heyOpenLink } from '@/lib/links';
 
 const footerLinks = [
-  ['Privacy', '#privacy'],
-  ['Platform', '#stack'],
-  ['HeyOpen', '#heyopen'],
-  ['Use cases', '#use-cases'],
-  ['Ecosystem', '#ecosystem'],
-  ['Investors', '#backed'],
+  ['Privacy', '/#privacy'],
+  ['Platform', '/#stack'],
+  ['HeyOpen', '/#heyopen'],
+  ['Use cases', '/#use-cases'],
+  ['$OPEN', '/stake'],
+  ['Enterprise', '/enterprise'],
+  ['Ecosystem', '/#ecosystem'],
+  ['Investors', '/#backed'],
 ];
 
 export function Cta() {
@@ -52,7 +54,7 @@ export function Footer() {
   return (
     <footer data-theme="dark" data-parallax-root className="theme-dark relative overflow-hidden border-t hair pt-14">
       <div className="shell flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
-        <a href="#top" className="flex items-center gap-2.5" aria-label="OpenLedger, back to top">
+        <a href="/" className="flex items-center gap-2.5" aria-label="OpenLedger, back to top">
           <Logo className="h-7 w-7" />
           <span className="text-[17px] font-semibold tracking-[-0.02em]">OpenLedger</span>
         </a>

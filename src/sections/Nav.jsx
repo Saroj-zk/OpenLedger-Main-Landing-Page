@@ -1,13 +1,18 @@
 import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Logo } from '@/components/ui';
 import { heyOpenLink } from '@/lib/links';
 
+// Two kinds of destination live in one bar: anchors on the home page, and
+// the two pages that stand on their own. Anchors are written from the root
+// so they still resolve when the reader is on one of those pages.
 const links = [
-  ['Privacy', '#privacy'],
-  ['Platform', '#stack'],
-  ['HeyOpen', '#heyopen'],
-  ['Use cases', '#use-cases'],
-  ['Ecosystem', '#ecosystem'],
+  ['Privacy', '/#privacy'],
+  ['Platform', '/#stack'],
+  ['HeyOpen', '/#heyopen'],
+  ['$OPEN', '/stake'],
+  ['Enterprise', '/enterprise'],
+  ['Ecosystem', '/#ecosystem'],
 ];
 
 // The bar floats over alternating black and paper sections, so it takes the
@@ -47,6 +52,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const theme = useThemeUnder(44);
   const light = theme === 'light';
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -54,6 +60,27 @@ export default function Nav() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  // A page link routes; an anchor is a plain jump. Only a page link can be
+  // the current one, and it says so.
+  const item = (label, href, className, onClick) => {
+    const isPage = !href.includes('#');
+    const current = isPage && pathname === href;
+    const props = {
+      className: `${className} ${current ? 'text-fg' : ''}`,
+      onClick,
+      ...(current ? { 'aria-current': 'page' } : null),
+    };
+    return isPage ? (
+      <Link to={href} {...props}>
+        {label}
+      </Link>
+    ) : (
+      <a href={href} {...props}>
+        {label}
+      </a>
+    );
+  };
 
   return (
     <>
@@ -69,19 +96,21 @@ export default function Nav() {
           data-blur="8"
           className={`glass mx-auto flex items-center justify-between rounded-[20px] pl-4 pr-2 transition-[max-width,height,background-color] duration-700 ease-[cubic-bezier(.16,1,.3,1)] ${
             light ? '' : 'glass-dark'
-          } ${scrolled ? 'h-[58px] max-w-[1040px]' : 'h-[64px] max-w-[1320px]'}`}
+          } ${scrolled ? 'h-[58px] max-w-[1120px]' : 'h-[64px] max-w-[1320px]'}`}
         >
-          <a href="#top" className="flex items-center gap-2.5" aria-label="OpenLedger home">
+          <Link to="/" className="flex shrink-0 items-center gap-2.5" aria-label="OpenLedger home">
             <Logo className="h-7 w-7" />
             <span className="text-[17px] font-semibold tracking-[-0.02em] text-fg">OpenLedger</span>
-          </a>
+          </Link>
 
-          <ul className="hidden items-center gap-1 lg:flex">
+          <ul className="hidden items-center gap-0.5 lg:flex">
             {links.map(([label, href]) => (
               <li key={href}>
-                <a href={href} className="rounded-lg px-3.5 py-2 text-[14px] text-fg/65 transition-colors hover:bg-fg/[0.06] hover:text-fg">
-                  {label}
-                </a>
+                {item(
+                  label,
+                  href,
+                  'block whitespace-nowrap rounded-lg px-3 py-2 text-[14px] text-fg/65 transition-colors hover:bg-fg/[0.06] hover:text-fg',
+                )}
               </li>
             ))}
           </ul>
@@ -108,15 +137,18 @@ export default function Nav() {
         <div
           id="mobile-menu"
           className={`glass mx-auto mt-2 max-w-[1320px] overflow-hidden rounded-[20px] transition-all duration-500 lg:hidden ${light ? '' : 'glass-dark'} ${
-            open ? 'max-h-[420px] opacity-100' : 'pointer-events-none max-h-0 opacity-0'
+            open ? 'max-h-[520px] opacity-100' : 'pointer-events-none max-h-0 opacity-0'
           }`}
         >
           <ul className="p-2">
             {links.map(([label, href]) => (
               <li key={href}>
-                <a href={href} onClick={() => setOpen(false)} className="block rounded-xl px-4 py-3.5 text-[16px] text-fg/85 hover:bg-fg/[0.06]">
-                  {label}
-                </a>
+                {item(
+                  label,
+                  href,
+                  'block rounded-xl px-4 py-3.5 text-[16px] text-fg/85 hover:bg-fg/[0.06]',
+                  () => setOpen(false),
+                )}
               </li>
             ))}
             <li className="p-2">
